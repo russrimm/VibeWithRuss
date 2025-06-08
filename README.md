@@ -126,6 +126,9 @@ npx create-next-app@latest . --typescript --tailwind --eslint
 
 # Install required dependencies
 npm install @azure/cosmos @azure/identity next-auth
+
+# If npm reports vulnerabilities, run:
+npm audit fix
 ```
 
 ### 5. VS Code Setup
@@ -236,14 +239,14 @@ product-photo-gallery/
 │   └── rules/
 ├── src/
 │   ├── components/
-│   ├── pages/
-│   │   ├── api/
-│   │   │   ├── auth/
-│   │   │   └── users/
-│   │   │   
-│   │   │   
-│   │   │   
-│   │   └── models/
+│   │   ├── pages/
+│   │   │   ├── api/
+│   │   │   │   ├── auth/
+│   │   │   │   └── users/
+│   │   │   │   
+│   │   │   │   
+│   │   │   │   
+│   │   │   └── models/
 ├── public/
 └── package.json
 ```
@@ -397,5 +400,156 @@ az webapp config appsettings set --name <app-name> --resource-group <resource-gr
 ```
 
 **Never commit your token to code or share it publicly.**
+
+### 11. Recommended Cursor/VS Code Rules for TypeScript/Next.js
+
+For best practices, code quality, and consistency, use the [front-end-cursor-rules](https://cursor.directory/front-end-cursor-rules) from cursor.directory. These rules are designed for React, Next.js, TypeScript, TailwindCSS, and modern UI/UX frameworks.
+
+#### How to Add These Rules in VS Code or Cursor
+
+1. **Open your project in VS Code or Cursor.**
+2. Open the integrated terminal.
+3. Run:
+   ```bash
+   npx cursor-directory rules add front-end-cursor-rules
+   ```
+4. This will fetch and add the recommended rules to your `.cursor/rules` directory.
+5. Review the rules in `.cursor/rules/front-end-cursor-rules.mdc` and adjust if needed.
+6. Restart Cursor or VS Code to ensure the rules are loaded.
+
+**Why use these rules?**
+- Enforces best practices for TypeScript, Next.js, React, and TailwindCSS
+- Ensures accessibility, naming, and code style standards
+- Helps new team members onboard quickly
+- Keeps your codebase clean and maintainable
+
+For more details, see [cursor.directory/front-end-cursor-rules](https://cursor.directory/front-end-cursor-rules)
+
+### 12. Example package.json and Explanation
+
+Below is a sample `package.json` for this project, including all required dependencies and scripts for a Next.js + TypeScript + TailwindCSS app:
+
+```json
+{
+  "devDependencies": {
+    "@types/node": "^22.15.30"
+  },
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/next": "^8.0.7",
+    "@types/next-auth": "^3.13.0",
+    "@types/react": "^19.1.6",
+    "autoprefixer": "^10.4.21",
+    "bcryptjs": "^3.0.2",
+    "next": "^15.3.3",
+    "next-auth": "^4.24.11",
+    "postcss": "^8.5.4",
+    "react": "^19.1.0",
+    "tailwindcss": "^4.1.8"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
+}
+```
+
+#### What each line does:
+- **devDependencies**: Packages needed only for development (type definitions for Node.js)
+- **dependencies**: Main packages for your app:
+  - `@types/bcryptjs`, `@types/next`, `@types/next-auth`, `@types/react`: TypeScript type definitions for those libraries
+  - `autoprefixer`, `postcss`, `tailwindcss`: For Tailwind CSS styling
+  - `bcryptjs`: Password hashing for authentication
+  - `next`: The Next.js framework
+  - `next-auth`: Authentication for Next.js
+  - `react`: The React library
+- **scripts**:
+  - `dev`: Starts the Next.js development server (`npm run dev`)
+  - `build`: Builds the app for production (`npm run build`)
+  - `start`: Starts the production server (`npm run start`)
+
+**Tip:** If you see `missing script: dev`, make sure your `package.json` includes the `scripts` section above.
+
+### 13. Example GitHub Actions Workflow for Azure Deployment
+
+Below is a full sample `.github/workflows/azure-webapps-node.yml` for deploying a Node.js + Next.js app to Azure Web App, including Azure login:
+
+```yaml
+name: Build and deploy Node.js app to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v4
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      # Install dependencies and build
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build
+
+      # Login to Azure using a Service Principal
+      - name: 'Login to Azure'
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Deploy to Azure Web App
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
+```
+
+#### What each part does:
+- **on.push.branches.main**: Triggers the workflow on every push to the `main` branch
+- **jobs.build-and-deploy**: The main job for building and deploying
+- **runs-on: ubuntu-latest**: Uses the latest Ubuntu runner
+- **actions/checkout@v4**: Checks out your code
+- **actions/setup-node@v4**: Sets up Node.js 22.x for the build
+- **npm install, build**: Installs dependencies and builds your app
+- **azure/login@v2**: Logs in to Azure using a Service Principal (credentials stored in `AZURE_CREDENTIALS` secret)
+- **azure/webapps-deploy@v3**: Deploys your app to Azure Web App using the publish profile and app name secrets
+
+**Tip:**
+- You must set the secrets `AZURE_CREDENTIALS`, `AZURE_WEBAPP_NAME`, and `AZURE_WEBAPP_PUBLISH_PROFILE` in your GitHub repo settings for this workflow to work.
+- This workflow is generated by Azure Deployment Center for Node.js/Next.js apps and is production-ready.
+
+### 14. Requesting a Code Review from GitHub Copilot
+
+With the latest GitHub Copilot features, you can now request an AI-powered code review directly from your pull request or code changes. This helps you catch bugs, improve code quality, and learn best practices—especially useful for new developers or teams.
+
+#### How to Request a Copilot Code Review
+1. Open a pull request in your GitHub repository.
+2. Look for the **Copilot** or **Copilot Chat** panel (if enabled for your repo).
+3. Click **Request Copilot Review** or use the Copilot Chat to ask for a review of your changes.
+4. Copilot will analyze your code, suggest improvements, and highlight potential issues or best practices.
+
+#### Benefits of Copilot Code Review
+- **Catches bugs and anti-patterns** before they reach production
+- **Suggests improvements** for readability, performance, and security
+- **Explains code** and best practices, helping you learn as you go
+- **Saves time** for both new and experienced developers
+- **Works 24/7**—get feedback instantly, even outside business hours
+
+**Tip:** Combine Copilot reviews with human code reviews for the best results!
+
+For more, see [GitHub Copilot documentation](https://docs.github.com/en/copilot).
 
 --- 
