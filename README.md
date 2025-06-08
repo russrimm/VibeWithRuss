@@ -164,7 +164,7 @@ cd product-photo-gallery
 npx create-next-app@latest . --typescript --tailwind --eslint
 
 # Install dependencies (including Azure Cosmos DB SDK)
-npm install @azure/cosmos @azure/identity next-auth tailwindcss postcss autoprefixer react next @types/react @types/node @types/bcryptjs @types/next @types/next-auth bcryptjs
+npm install @azure/cosmos @azure/identity next-auth tailwindcss postcss autoprefixer react next @types/react @types/node @types/bcryptjs bcryptjs
 
 # If npm reports vulnerabilities, run:
 npm audit fix
@@ -577,12 +577,10 @@ Below is a sample `package.json` for this project, including all required depend
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/next": "^8.0.7",
-    "@types/next-auth": "^3.13.0",
     "@types/react": "^19.1.6",
     "autoprefixer": "^10.4.21",
     "bcryptjs": "^3.0.2",
     "next": "^15.3.3",
-    "next-auth": "^4.24.11",
     "postcss": "^8.5.4",
     "react": "^19.1.0",
     "tailwindcss": "^4.1.8"
@@ -598,11 +596,10 @@ Below is a sample `package.json` for this project, including all required depend
 #### What each line does:
 - **devDependencies**: Packages needed only for development (type definitions for Node.js)
 - **dependencies**: Main packages for your app:
-  - `@types/bcryptjs`, `@types/next`, `@types/next-auth`, `@types/react`: TypeScript type definitions for those libraries
+  - `@types/bcryptjs`, `@types/react`: TypeScript type definitions for those libraries
   - `autoprefixer`, `postcss`, `tailwindcss`: For Tailwind CSS styling
   - `bcryptjs`: Password hashing for authentication
   - `next`: The Next.js framework
-  - `next-auth`: Authentication for Next.js
   - `react`: The React library
 - **scripts**:
   - `dev`: Starts the Next.js development server (`npm run dev`)
