@@ -236,14 +236,14 @@ product-photo-gallery/
 │   └── rules/
 ├── src/
 │   ├── components/
-│   ├── pages/
-│   │   ├── api/
-│   │   │   ├── auth/
-│   │   │   └── users/
-│   │   │   
-│   │   │   
-│   │   │   
-│   │   └── models/
+│   │   ├── pages/
+│   │   │   ├── api/
+│   │   │   │   ├── auth/
+│   │   │   │   └── users/
+│   │   │   │   
+│   │   │   │   
+│   │   │   │   
+│   │   │   └── models/
 ├── public/
 └── package.json
 ```
@@ -397,5 +397,29 @@ az webapp config appsettings set --name <app-name> --resource-group <resource-gr
 ```
 
 **Never commit your token to code or share it publicly.**
+
+### 11. Recommended Cursor/VS Code Rules for TypeScript/Next.js
+
+For best practices, code quality, and consistency, use the [front-end-cursor-rules](https://cursor.directory/front-end-cursor-rules) from cursor.directory. These rules are designed for React, Next.js, TypeScript, TailwindCSS, and modern UI/UX frameworks.
+
+#### How to Add These Rules in VS Code or Cursor
+
+1. **Open your project in VS Code or Cursor.**
+2. Open the integrated terminal.
+3. Run:
+   ```bash
+   npx cursor-directory rules add front-end-cursor-rules
+   ```
+4. This will fetch and add the recommended rules to your `.cursor/rules` directory.
+5. Review the rules in `.cursor/rules/front-end-cursor-rules.mdc` and adjust if needed.
+6. Restart Cursor or VS Code to ensure the rules are loaded.
+
+**Why use these rules?**
+- Enforces best practices for TypeScript, Next.js, React, and TailwindCSS
+- Ensures accessibility, naming, and code style standards
+- Helps new team members onboard quickly
+- Keeps your codebase clean and maintainable
+
+For more details, see [cursor.directory/front-end-cursor-rules](https://cursor.directory/front-end-cursor-rules)
 
 --- 
