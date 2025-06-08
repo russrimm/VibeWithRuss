@@ -175,9 +175,9 @@ npm audit fix
 
 2. **Configure PostCSS:**
 
-   In `postcss.config.js`:
+   Create `postcss.config.mjs` in your project root (delete any existing `postcss.config.js`):
    ```js
-   module.exports = {
+   export default {
      plugins: {
        '@tailwindcss/postcss': {},
        autoprefixer: {},
@@ -185,7 +185,7 @@ npm audit fix
    }
    ```
 
-   > **Note:** Do **not** use `tailwindcss: {}` as the plugin key. Use `@tailwindcss/postcss` as shown above. See: [Tailwind PostCSS docs](https://tailwindcss.com/docs/installation/using-postcss)
+   > **Note:** Use ESM syntax (`export default`) and the `.mjs` extension. Do not use `postcss.config.js`. See: [Tailwind PostCSS docs](https://tailwindcss.com/docs/installation/using-postcss)
 
 3. **Import Tailwind in your CSS:**
 
