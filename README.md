@@ -141,8 +141,11 @@ cd product-photo-gallery
 # Create Next.js project with TypeScript
 npx create-next-app@latest . --typescript --tailwind --eslint
 
-# Install dependencies (including Azure Cosmos DB SDK and Tailwind v4)
-npm install @azure/cosmos @azure/identity next-auth tailwindcss @tailwindcss/cli postcss autoprefixer react next @types/react @types/node @types/bcryptjs bcryptjs
+# Install dependencies (including Azure Cosmos DB SDK v4.0.1+ and Tailwind v4+)
+npm install @azure/cosmos@latest @azure/identity next-auth react next @types/react @types/node @types/bcryptjs bcryptjs
+
+# Install TailwindCSS v4+ and PostCSS (required for styling)
+npm install -D tailwindcss@4 @tailwindcss/postcss postcss autoprefixer
 
 # If npm reports vulnerabilities, run:
 npm audit fix
@@ -153,6 +156,11 @@ npm audit fix
 > **Tailwind v4 Note:**
 > - Tailwind CSS v4 splits the CLI into a separate package. You must install **both** `tailwindcss` and `@tailwindcss/cli` for commands like `npx tailwindcss init` to work.
 > - If you get an error like "could not determine executable to run" when running `npx tailwindcss init`, make sure you have installed both packages.
+
+> **Note:** This project requires `@azure/cosmos` version **4.48.2 or higher**. Make sure your `package.json` includes:
+> ```json
+>   "@azure/cosmos": "^4.48.2"
+> ```
 
 ### 5. VS Code Setup
 
