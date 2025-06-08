@@ -855,4 +855,12 @@ npm run dev
 - If your app won't start after a package update
 - If you get errors about missing modules that you know are installed
 
-**This is a safe, standard troubleshooting step for all Node.js/Next.js projects.** 
+**This is a safe, standard troubleshooting step for all Node.js/Next.js projects.**
+
+## Troubleshooting Tips
+
+If you get stuck on a specific error:
+- Search for the error message online (Stack Overflow, GitHub Issues, official docs, etc.).
+- If you find a discussion, blog post, or solution that seems promising, **copy the URL**.
+- Provide the URL to the agent (AI assistant) and ask it to review and fix the issue using the findings from that page.
+- This helps the agent give you a solution that is up-to-date and tailored to your exact problem. 
