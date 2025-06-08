@@ -685,4 +685,74 @@ When adding environment variables (application settings) in Azure App Service, y
 
 **Reference:** [Microsoft Docs: App settings and connection strings in Azure App Service](https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots#app-settings-and-connection-strings)
 
+### 16. Fixing Azure Login Error in GitHub Actions: Setting AZURE_CREDENTIALS (Azure Portal GUI Only)
+
+If you see an error like:
+```
+Error: Login failed with Error: Using auth-type: SERVICE_PRINCIPAL. Not all values are present. Ensure 'client-id' and 'tenant-id' are supplied.
+```
+This means your GitHub Actions workflow is missing the correct Azure credentials.
+
+#### How to Fix (Azure Portal Only)
+
+1. **Go to the [Azure Portal](https://portal.azure.com/)**
+2. **Create an App Registration (Service Principal):**
+   - Go to **Azure Active Directory** > **App registrations** > **New registration**
+   - Name: `github-actions-deploy` (or similar)
+   - Supported account types: leave as default
+   - Click **Register**
+3. **Create a Client Secret:**
+   - In your new app registration, go to **Certificates & secrets**
+   - Click **New client secret**
+   - Add a description and expiration, then click **Add**
+   - Copy the **Value** (this is your `clientSecret`)
+4. **Get the Required Values:**
+   - **clientId**: From the app registration's **Overview** page (Application (client) ID)
+   - **tenantId**: From the **Overview** page (Directory (tenant) ID)
+   - **clientSecret**: From the secret you just created
+   - **subscriptionId**: Go to **Subscriptions** in the Azure Portal and copy your Subscription ID
+5. **Assign the Contributor Role:**
+   - Go to **Subscriptions** > your subscription > **Access control (IAM)**
+   - Click **Add** > **Add role assignment**
+   - In the role selection panel, click **Privileged administrator roles** to see the **Contributor** role
+   - Role: **Contributor**
+   - Assign access to: **User, group, or service principal**
+   - Select: Search for your app registration name and select it
+   - Click **Save**
+6. **Create the AZURE_CREDENTIALS JSON:**
+   - Format:
+     ```json
+     {
+       "clientId": "YOUR_CLIENT_ID",
+       "clientSecret": "YOUR_CLIENT_SECRET",
+       "subscriptionId": "YOUR_SUBSCRIPTION_ID",
+       "tenantId": "YOUR_TENANT_ID"
+     }
+     ```
+7. **Add the AZURE_CREDENTIALS Secret to GitHub:**
+   - Go to your GitHub repo > **Settings** > **Secrets and variables** > **Actions**
+   - Click **New repository secret**
+   - Name: `AZURE_CREDENTIALS`
+   - Value: (paste the JSON from above)
+   - Click **Add secret**
+8. **Re-run your GitHub Actions workflow**
+   - Push a new commit or re-run the failed workflow. The Azure login step should now succeed.
+
+**Note:**
+- No CLI or Cloud Shell commands are required for this process. Use only the Azure Portal GUI for a smooth, future-proof setup.
+
+**Reference:** [Azure/login GitHub Action Docs](https://github.com/Azure/login#configure-a-service-principal-with-a-secret)
+
+**Why is the Contributor role required?**
+- The Contributor role allows the Entra app registration (Service Principal) to deploy, update, and manage resources in your Azure subscription as part of your GitHub Actions workflow.
+- This permission is necessary so that GitHub Actions can:
+  - Deploy your web app
+  - Update configuration and environment variables
+  - Manage related Azure resources (e.g., storage, databases) as needed by your deployment pipeline
+- Without this role, the deployment workflow would not have sufficient permissions to perform these actions in your Azure environment.
+
+**Security Note:**
+- The Contributor role grants broad permissions to manage resources, but does NOT allow access to secrets in Key Vault or change role assignments themselves.
+- Always assign the minimum permissions needed and use a dedicated Service Principal for CI/CD automation.
+
 --- 
