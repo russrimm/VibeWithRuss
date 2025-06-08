@@ -1,111 +1,131 @@
 # Product Photo Gallery Web App
 
-A modern web application built with Next.js, TypeScript, and Azure services for displaying product photos.
+A modern web application built with Next.js, TypeScript, Tailwind CSS, and Azure services for displaying product photos.
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (LTS version)
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Git](https://git-scm.com/)
-- [GitHub Account](https://github.com/signup)
-- [Azure Account](https://azure.microsoft.com/free/)
+- **Node.js**: LTS version (recommended: v20.x, as v22.x may not be fully supported by Azure yet)
+- **Visual Studio Code**: Download from [code.visualstudio.com](https://code.visualstudio.com)
+- **Git**: Download from [git-scm.com](https://git-scm.com)
+- **GitHub Account**: Sign up at [github.com](https://github.com)
+- **Azure Account**: Sign up for a free account at [azure.microsoft.com/free](https://azure.microsoft.com/free)
 
 ## Getting Started
 
 ### 0. Recommended: Use the Official Next.js + Tailwind Starter
 
-For the easiest and most reliable setup with Tailwind v4+, start your project using the official Next.js + Tailwind template:
+For a reliable setup with Tailwind CSS v4+ and Next.js, start with the official template:
 
 ```bash
-npx create-next-app@latest my-app -e with-tailwindcss
+npx create-next-app@latest my-app --typescript --tailwind --eslint
 ```
 
-This ensures all configuration and dependencies are correct for Tailwind v4+ and Next.js. You can then copy your code into this new project or use it as a reference for your own setup.
+This ensures correct configuration for Tailwind v4 and Next.js. Copy your code into this project or use it as a reference.
 
----
+## 1. Development Environment Setup
 
-### 1. Development Environment Setup
+1. Install Node.js from [nodejs.org](https://nodejs.org).
+2. Install Visual Studio Code from [code.visualstudio.com](https://code.visualstudio.com).
+3. Install Git from [git-scm.com](https://git-scm.com).
 
-1. Install Node.js from [nodejs.org](https://nodejs.org/)
-2. Install VS Code from [code.visualstudio.com](https://code.visualstudio.com/)
-3. Install Git from [git-scm.com](https://git-scm.com/)
+## 2. GitHub Repository Setup & Workflow
 
-### 2. GitHub Repository Setup & Workflow
+### a. Create a New GitHub Repository
 
-#### a. Create a New GitHub Repository
-1. Go to [GitHub](https://github.com/)
-2. Click the **+** icon (top right) > **New repository**
-3. Name it (e.g., `product-photo-gallery`)
-4. Set visibility (Public or Private)
-5. (Optional) Add a description
-6. **Initialize with a README** (recommended)
-7. Click **Create repository**
+1. Go to [github.com](https://github.com).
+2. Click the **+** icon (top right) > **New repository**.
+3. Name it (e.g., `product-photo-gallery`).
+4. Set visibility (Public or Private).
+5. (Optional) Add a description.
+6. Initialize with a README (optional but recommended).
+7. Click **Create repository**.
 
-#### b. Clone the Repository Locally (with GitHub Desktop)
-1. Open [GitHub Desktop](https://desktop.github.com/)
-2. Go to **File > Clone repository**
-3. Find your repo in the list or paste the URL (e.g., `https://github.com/YOUR_USERNAME/product-photo-gallery.git`)
-4. Click **Clone**
+### b. Clone the Repository Locally
 
-#### c. Create a New Branch (with GitHub Desktop)
-1. In GitHub Desktop, click the **Current Branch** dropdown (top center)
-2. Click **New Branch**
-3. Name your branch (e.g., `feature/your-feature-name`)
-4. Click **Create Branch**
+Using Git command line:
 
-#### d. Make Changes, Pull, and Push (with GitHub Desktop)
-1. Make your code changes in your editor (e.g., VS Code)
-2. Go back to GitHub Desktop
-3. You'll see changed files listed on the left
-4. Enter a summary for your changes at the bottom left
-5. Click **Commit to [your branch name]**
-6. Click **Repository > Pull origin** to get the latest changes from GitHub (do this before pushing if others are working on the repo)
-7. Click **Push origin** (top bar) to upload your branch and commits to GitHub
+```bash
+git clone https://github.com/YOUR_USERNAME/product-photo-gallery.git
+cd product-photo-gallery
+```
 
-#### e. Create a Pull Request (PR)
-1. After pushing, GitHub Desktop will show a button: **Create Pull Request**
-2. Click it to open GitHub in your browser
-3. Fill in the PR details and submit
-4. Wait for review/merge
+Or use GitHub Desktop:
+1. Open GitHub Desktop.
+2. Go to **File > Clone repository**.
+3. Select your repo or paste the URL.
+4. Click **Clone**.
 
-#### f. Check GitHub Actions Status
-1. Go to the **Actions** tab in your GitHub repo
-2. Click on the latest workflow run to see build/deploy status
-3. Fix any errors and push again if needed
+### c. Create a New Branch
 
-#### What are commits, pull requests, and merging?
+Using Git command line:
 
-- **Commit:**
-  - A commit is a snapshot of your code changes. Each commit has a message describing what changed. Commits let you track the history of your project and roll back if needed.
-  - You create a commit after staging your changes with `git add` and then running `git commit -m "message"`.
+```bash
+git checkout -b feature/your-feature-name
+```
 
-- **Pull Request (PR):**
-  - A pull request is a request to merge your changes from one branch (e.g., a feature branch) into another (usually `main`).
-  - PRs let you review, discuss, and test changes before they become part of the main codebase. They are essential for collaboration and code quality.
-  - In GitHub, you create a PR after pushing your branch. Team members (or Copilot) can review and approve it.
+Or use GitHub Desktop:
+1. Click the **Current Branch** dropdown.
+2. Click **New Branch**.
+3. Name it (e.g., `feature/your-feature-name`).
+4. Click **Create Branch**.
 
-- **Merging:**
-  - Merging is the process of integrating changes from one branch into another. When a PR is approved, you merge it to make the changes part of the main branch.
-  - This updates the main branch with your new features, bug fixes, or improvements.
+### d. Make Changes, Pull, and Push
 
-**Why use this process?**
-- Ensures code is reviewed and tested before going live
-- Prevents conflicts and mistakes in the main codebase
-- Makes it easy to track, discuss, and roll back changes if needed
+1. Make code changes in VS Code.
+2. Stage and commit changes:
+   ```bash
+   git add .
+   git commit -m "Describe your changes"
+   ```
+3. Pull the latest changes from the main branch:
+   ```bash
+   git pull origin main
+   ```
+4. Resolve any conflicts if prompted.
+5. Push your branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 
-### 3. Azure Deployment YAML (Node.js + Next.js)
+Or use GitHub Desktop:
+1. View changed files in the left panel.
+2. Enter a commit message in the commit pane.
+3. Click **Commit to** [branch].
+4. Click **Pull origin** to sync with GitHub.
+5. Click **Push origin** to upload changes.
 
-Azure can auto-generate a GitHub Actions workflow for Node.js/Next.js deployments:
+### e. Create a Pull Request (PR)
 
-1. In the [Azure Portal](https://portal.azure.com/), go to your App Service
-2. In the left menu, select **Deployment Center**
-3. Choose **GitHub** as the source, authenticate, and select your repo/branch
-4. Azure will auto-generate a `.github/workflows/azure-webapps-node.yml` file
-5. Review and commit the YAML file to your repo
+1. In GitHub, navigate to your repository.
+2. Click **Pull requests > New pull request**.
+3. Select your branch and compare it to `main`.
+4. Fill in PR details and click **Create pull request**.
+5. Wait for review and merge.
 
-**Example YAML for Node.js + Next.js:**
+### f. Check GitHub Actions Status
+
+1. Go to the **Actions** tab in your GitHub repository.
+2. Click the latest workflow run to check build/deployment status.
+3. Fix any errors and push changes if needed.
+
+### What are Commits, Pull Requests, and Merging?
+
+- **Commit**: A snapshot of code changes with a descriptive message. Created using `git commit -m "message"`.
+- **Pull Request (PR)**: A request to merge your changes into another branch (e.g., `main`). PRs enable code review and collaboration.
+- **Merging**: Integrates changes from one branch into another, typically PR approval.
+- **Why use this process?**
+  - Ensures code quality through reviews.
+  - Prevents conflicts in the main codebase.
+  - Tracks changes and enables rollbacks.
+
+## 3. Azure Deployment YAML (Node.js + Next.js)
+
+Azure can generate a GitHub Actions workflow for deploying your app. Below is an updated YAML file using modern actions and caching for faster builds.
+
+Create `.github/workflows/ci-deployment.yml`:
+
 ```yaml
-name: Build and deploy Node.js app to Azure Web App
+name: Build and deploy to Azure Web App
 
 on:
   push:
@@ -117,308 +137,263 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
-      - name: npm install, build, and test
+          node-version: '20.x' # Use LTS version
+          cache: 'npm' # Cache dependencies for faster builds
+
+      - name: Install dependencies and build
         run: |
-          npm install
+          npm ci
           npm run build
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v4
         with:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
           package: .
 ```
 
-- Azure will set the required secrets (`AZURE_WEBAPP_NAME`) automatically if you use the Deployment Center.
-- For Next.js, make sure your build output is correctly configured (see Azure docs for SSR/static export options).
+### Setting Secrets
 
-## ⚠️ Azure Deployment Security Best Practices
+1. In Azure Portal, go to your App Service > **Deployment Center**.
+2. Select **GitHub** as the source, authenticate, and choose your repo/branch.
+3. Azure will generate `AZURE_WEBAPP_NAME` and `AZURE_CREDENTIALS` secrets in your GitHub repository settings.
+4. If manually setting secrets:
+   - Go to GitHub repository > **Settings > Secrets and variables > Actions**.
+   - Add `AZURE_WEBAPP_NAME` (your App Service name).
+   - Add `AZURE_CREDENTIALS` as a JSON string (see section 16).
 
-- **Always use Service Principal authentication for Azure deployments.**
-- **Do NOT use publish profiles or basic authentication in GitHub Actions workflows.**
-- Remove any `publish-profile:` lines from workflow YAMLs.
-- Never use the Azure Portal's "publish profile" workflow generator.
-- If you see a workflow step referencing `publish-profile`, replace it with Service Principal authentication as described above.
+### Notes
 
-### 4. Local Project Setup
+- Use Node.js 20.x for compatibility with Azure App Service.
+- For Next.js, configure `next.config.js` for static site generation (SSG) or server-side rendering (SSR) based on your needs. See [Next.js Azure docs](https://nextjs.org/docs/deployment#azure).
+- **Security Best Practices**:
+  - Use Service Principal authentication (via `AZURE_CREDENTIALS`).
+  - Avoid publish profiles in workflows.
+  - Never commit secrets to your repository.
+
+## 4. Local Project Setup
 
 ```bash
 # Clone your repository
 git clone https://github.com/YOUR_USERNAME/product-photo-gallery.git
 cd product-photo-gallery
 
-# Create Next.js project with TypeScript
-npx create-next-app@latest . --typescript --tailwind --eslint
-
-# Install dependencies (including Azure Cosmos DB SDK and Tailwind v4)
+# Install dependencies
 npm install @azure/cosmos @azure/identity next-auth tailwindcss @tailwindcss/cli postcss autoprefixer react next @types/react @types/node @types/bcryptjs bcryptjs
 
-# If npm reports vulnerabilities, run:
+# Run audit fix for vulnerabilities
 npm audit fix
 ```
 
-- If you see an error like `Cannot find module '@azure/cosmos'`, make sure you have run the above `npm install` command. This package is required for Cosmos DB integration and includes its own TypeScript types.
+### Tailwind CSS Setup (v4+)
 
-## Tailwind CSS Setup (v4+)
-
-1. **Install Tailwind, PostCSS, and the Tailwind PostCSS plugin:**
-
-   ```sh
-   npm install tailwindcss @tailwindcss/postcss postcss --save-dev
+1. Install Tailwind CSS:
+   ```bash
+   npm install tailwindcss @tailwindcss/cli postcss autoprefixer --save-dev
    ```
 
-2. **Configure PostCSS:**
-
-   Create `postcss.config.mjs` in your project root (delete any existing `postcss.config.js`):
-   ```js
+2. Create `postcss.config.mjs`:
+   ```javascript
    export default {
      plugins: {
-       '@tailwindcss/postcss': {},
+       '@tailwindcss/cli': {},
        autoprefixer: {},
      },
-   }
+   };
    ```
 
-   > **Note:** Use ESM syntax (`export default`) and the `.mjs` extension. Do not use `postcss.config.js`. See: [Tailwind PostCSS docs](https://tailwindcss.com/docs/installation/using-postcss)
-
-3. **Import Tailwind in your CSS:**
-
-   In your main CSS file (e.g. `src/styles/globals.css`):
+3. Create `src/styles/globals.css`:
    ```css
    @tailwind base;
    @tailwind components;
    @tailwind utilities;
    ```
 
-4. **Restart your dev server:**
+4. (Optional) Create `tailwind.config.js` if customizations are needed:
+   ```javascript
+   /** @type {import('tailwindcss').Config} */
+   module.exports = {
+     content: [
+       './src/pages/**/*.{js,ts,jsx,tsx}',
+       './src/components/**/*.{js,ts,jsx,tsx}',
+     ],
+     theme: {
+       extend: {},
+     },
+     plugins: [],
+   };
+   ```
 
-   ```sh
+5. Start the development server:
+   ```bash
    npm run dev
    ```
 
-### 5. VS Code Setup
+## 5. VS Code Setup
 
-1. Open VS Code
-2. Install the following extensions:
-   - Cursor AI
-   - ESLint
-   - Prettier
-   - Azure Tools
-   - Azure Cosmos DB
+1. Open your project in VS Code.
+2. Install recommended extensions:
+   - **ESLint**: For TypeScript linting.
+   - **Prettier**: For code formatting.
+   - **Azure Tools**: For Azure service integration.
+   - **Azure Cosmos DB**: For database management.
 
-### 6. Using Cursor AI Agent
+## 6. Azure Services Setup
 
-1. Open your project in VS Code
-2. Press `Cmd/Ctrl + Shift + P`
-3. Type "Cursor: Start Agent Mode"
-4. Use the following prompts to build your app:
+1. Create an Azure account at [azure.microsoft.com/free](https://azure.microsoft.com/free).
+2. Set up the following services in Azure Portal:
+   - **Azure Blob Storage**: For product images.
+   - **Azure App Service**: For hosting.
+   - **Azure CDN**: For image delivery (optional).
+   - **Azure Cosmos DB**: For user data (Core SQL API).
+   - **Microsoft Entra ID**: For authentication.
 
-```markdown
-"Create a Next.js component for displaying product photos in a grid layout"
-"Add Azure Blob Storage integration for storing product images"
-"Implement a product card component with hover effects"
-"Add a shopping cart functionality"
-"Set up user authentication with Azure AD"
-"Create Cosmos DB models for user management"
+### 6a. Azure Cosmos DB Setup
+
+1. In Azure Portal, go to **Create a resource > Azure Cosmos DB**.
+2. Select **Core (SQL)** API.
+3. Fill in:
+   - Subscription: Your Azure subscription.
+   - Resource Group: Create new or use existing.
+   - Account Name: Unique name (e.g., `product-gallery-cosmos`).
+   - Region: Choose a region close to you.
+4. Click **Review + create** > **Create**.
+5. After deployment, go to **Data Explorer**:
+   - Create a new database: `user-database`.
+   - Create a new container: `users`, with partition key `/email` (adjust based on query patterns).
+   - Set throughput: 400 RU/s for development.
+6. Get credentials:
+   - Go to **Keys** > Copy **URI** (`COSMOS_ENDPOINT`) and **PRIMARY KEY** (`COSMOS_KEY`).
+7. Add to `.env.local`:
+   ```env
+   COSMOS_ENDPOINT=your-cosmos-endpoint-url
+   COSMOS_KEY=your-cosmos-key
+   COSMOS_DATABASE=user-database
+   COSMOS_CONTAINER=users
+   ```
+
+**Tip**: Add `.env.local` to `.gitignore` to prevent committing secrets.
+
+### 6b. Microsoft Entra ID Setup
+
+1. In Azure Portal, go to **Microsoft Entra ID > App registrations > New registration**.
+2. Fill in:
+   - Name: `Product Photo Gallery App`.
+   - Supported account types: Single-tenant (or multi-tenant as needed).
+   - Redirect URI: `http://localhost:3000/api/auth/callback/azure-ad` (for development).
+3. Click **Register**.
+4. Configure token settings:
+   - Go to **Authentication**.
+   - Enable **ID tokens** under **Implicit grant and hybrid flows**.
+   - (Optional) Enable **Access tokens** if calling APIs from the browser.
+5. Create a client secret:
+   - Go to **Certificates & secrets > New client secret**.
+   - Add a description and expiration, then copy the **Value** (`AZURE_AD_CLIENT_SECRET`).
+6. Set API permissions:
+   - Go to **API permissions > Add a permission > Microsoft Graph > Delegated permissions**.
+   - Add: `openid`, `profile`, `email`, (optional) `offline_access`.
+   - Click **Grant admin consent** if required.
+7. Get credentials:
+   - **AZURE_AD_CLIENT_ID**: From **Overview** (Application ID).
+   - **AZURE_AD_TENANT_ID**: From **Overview** (Directory ID).
+   - **AZURE_AD_CLIENT_SECRET**: From the secret created.
+8. Add to `.env.local`:
+   ```env
+   AZURE_AD_CLIENT_ID=your-client-id
+   AZURE_AD_CLIENT_SECRET=your-client-secret
+   AZURE_AD_TENANT_ID=your-tenant-id
+   ```
+9. For production, update **Redirect URIs** in **Authentication** with your production URL (e.g., `https://yourdomain.com/api/auth/callback/azure-ad`).
+
+### 6c. Azure Blob Storage Setup
+
+1. In Azure Portal, go to **Create a resource > Storage account**.
+2. Fill in:
+   - Subscription, Resource Group, Name, Region.
+   - Performance: Standard.
+   - Redundancy: Locally-redundant storage (LRS) for development.
+3. Click **Review + create** > **Create**.
+4. After deployment, go to **Containers > + Container**.
+5. Name it (e.g., `product-images`).
+6. Set **Public access level** to `Blob` (for public read) or `Private` (for uploads).
+7. Get credentials:
+   - Go to **Access keys** > Copy **Connection string** (`AZURE_STORAGE_CONNECTION_STRING`).
+   - Container name: `product-images`.
+8. Add to `.env.local`:
+   ```env
+   AZURE_STORAGE_CONNECTION_STRING=your-connection-string
+   AZURE_BLOB_CONTAINER=product-images
+   ```
+
+## 7. Project Structure
+
+```plaintext
+product-photo-gallery/
+├── .github/
+│   └── workflows/
+│       └── ci-deployment.yml
+├── src/
+│   ├── components/
+│   ├── pages/
+│   │   ├── api/
+│   │   │   ├── auth/
+│   │   │   └── users/
+│   ├── lib/
+│   │   └── db/
+│   │       └── models/
+│   └── styles/
+│       └── globals.css
+├── public/
+├── .env.local
+├── .gitignore
+├── next.config.js
+├── package.json
+├── postcss.config.mjs
+└── tsconfig.json
 ```
 
-### 7. Azure Services Setup
+## 8. Environment Variables
 
-1. Create an Azure account at [azure.microsoft.com/free](https://azure.microsoft.com/free/)
-2. Set up the following services:
-   - Azure Blob Storage (for product images)
-   - Azure App Service (for hosting)
-   - Azure CDN (for image delivery)
-   - Azure Cosmos DB (for user data)
-   - Azure Active Directory (for authentication)
-
-#### 7a. Creating Azure Cosmos DB and Getting Credentials
-
-To use Cosmos DB, you must create an instance in Azure and get the connection details for your `.env.local` file.
-
-#### How to Create a Cosmos DB Instance
-1. Go to the [Azure Portal](https://portal.azure.com/)
-2. Click **Create a resource** > **Databases** > **Azure Cosmos DB**
-3. Choose **Core (SQL) - Recommended**
-4. Fill in the required fields:
-   - **Subscription**: Your Azure subscription
-   - **Resource Group**: Create new or use existing
-   - **Account Name**: Unique name for your Cosmos DB account
-   - **API**: Core (SQL)
-   - **Region**: Choose a region close to you
-5. Click **Review + create** and then **Create**
-6. Wait for deployment to complete
-
-#### Create Database and Container
-1. In your Cosmos DB account, go to **Data Explorer**
-2. Click **New Database**
-   - Name: `user-database` (or your choice)
-3. Click **New Container**
-   - Database: `user-database`
-   - Container ID: `users` (or your choice)
-   - Partition key: `/email`
-   - Throughput: 400 RU/s (default is fine for dev)
-
-#### Get Your Endpoint and Key
-1. In your Cosmos DB account, go to **Keys** in the left menu
-2. Copy the **URI** (this is your `COSMOS_ENDPOINT`)
-3. Copy the **PRIMARY KEY** (this is your `COSMOS_KEY`)
-
-#### Add to `.env.local`
-Create a `.env.local` file in your project root with:
+Create `.env.local` in the project root:
 
 ```env
-COSMOS_ENDPOINT=your-cosmos-endpoint-url
+# Azure Cosmos DB
+COSMOS_ENDPOINT=your-cosmos-endpoint
 COSMOS_KEY=your-cosmos-key
 COSMOS_DATABASE=user-database
 COSMOS_CONTAINER=users
-```
 
-**Tip:** Never commit `.env.local` to your repo. Always restart your dev server after editing this file.
+# Azure Blob Storage
+AZURE_STORAGE_CONNECTION_STRING=your-connection-string
+AZURE_BLOB_CONTAINER=product-images
 
-#### 7b. Azure Entra (Azure AD) App Registration for Authentication
+# NextAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-nextauth-secret
 
-To use Azure Active Directory (now Azure Entra ID) for authentication, follow these steps to register your app, set permissions, and get the values for your `.env.local` file.
-
-#### How to Register an App in Azure Entra (Azure AD)
-1. Go to the [Azure Portal](https://portal.azure.com/)
-2. Navigate to **Azure Active Directory** (or **Microsoft Entra ID**) > **App registrations**
-3. Click **New registration**
-4. Set a **Name** (e.g., `Product Photo Gallery App`)
-5. **Supported account types**: Choose as needed (single-tenant or multi-tenant)
-6. **Redirect URI**: Set to `http://localhost:3000/api/auth/callback/azure-ad` for local dev (add your production URI later)
-7. Click **Register**
-
-#### Important: Token Settings for Authentication
-- In your app registration, go to **Authentication**.
-- Under **Implicit grant and hybrid flows**:
-  - **Check** ✔️ **ID tokens (used for implicit and hybrid flows)** (required for NextAuth.js/OpenID Connect login)
-  - **Check** Access tokens (for implicit flows) **only if** you need to call APIs from the browser (not needed for most Next.js/NextAuth.js setups)
-
-| Token Type   | Enable? | When?                                              |
-|--------------|---------|----------------------------------------------------|
-| ID tokens    | ✔️ Yes  | Always, for OpenID Connect/NextAuth.js login       |
-| Access tokens| Optional| Only if calling APIs from browser (SPA scenario)   |
-
-#### Generate a Client Secret
-1. In your app registration, go to **Certificates & secrets**
-2. Click **New client secret**
-3. Add a description and expiration, then click **Add**
-4. Copy the **Value** (this is your `AZURE_AD_CLIENT_SECRET`)
-
-#### Set API Permissions
-1. Go to **API permissions**
-2. By default, `User.Read` is included (sufficient for basic sign-in)
-3. To enable profile/email info, click **Add a permission** > **Microsoft Graph** > **Delegated permissions** and add:
-   - `openid`
-   - `profile`
-   - `email`
-   - (Optional) `offline_access` for refresh tokens
-4. Click **Grant admin consent** if required
-
-#### Get Your App Credentials
-- **AZURE_AD_CLIENT_ID**: From the app registration's **Overview** page
-- **AZURE_AD_CLIENT_SECRET**: From the secret you created above
-- **AZURE_AD_TENANT_ID**: From the **Overview** page (Directory (tenant) ID)
-
-#### Add to `.env.local`
-```env
+# Microsoft Entra ID
 AZURE_AD_CLIENT_ID=your-client-id
 AZURE_AD_CLIENT_SECRET=your-client-secret
 AZURE_AD_TENANT_ID=your-tenant-id
 ```
 
-#### Update Redirect URIs for Production
-- In the app registration, go to **Authentication** > **Redirect URIs**
-- Add your production callback URL (e.g., `https://yourdomain.com/api/auth/callback/azure-ad`)
-
-**Tip:** Never commit `.env.local` to your repo. Always restart your dev server after editing this file.
-
-### 7c. Creating Azure Blob Storage for Product Images
-
-For storing and serving product images, you should use **Azure Blob Storage** (not Data Lake Gen2 or Azure Files).
-
-#### Why Azure Blob Storage?
-- Optimized for storing and serving unstructured data like images, videos, and documents
-- Standard choice for web apps needing to upload, store, and serve files
-- Easy to integrate with your app and supports public/private access
-
-#### Do NOT use:
-- **Azure Data Lake Storage Gen2** (for analytics/big data scenarios)
-- **Azure Files** (for SMB file shares, not web images)
-
-#### How to Create Azure Blob Storage
-1. In the [Azure Portal](https://portal.azure.com/), click **Create a resource** > **Storage** > **Storage account**
-2. Fill in the required fields (Subscription, Resource Group, Storage account name, Region)
-3. **Performance**: Standard (default)
-4. **Redundancy**: Locally-redundant storage (LRS) is fine for dev
-5. **Enable Blob Storage** (default)
-6. Click **Review + create** and then **Create**
-7. After deployment, go to your storage account
-8. In the left menu, under **Data storage**, click **Containers**
-9. Click **+ Container** and name it (e.g., `product-images`)
-10. Set **Public access level** as needed (private for uploads, blob for public read access)
-
-#### Where to Find Your Blob Container Name and Connection String
-
-- **Blob Container Name:**
-  1. In the Azure Portal, go to your Storage Account
-  2. In the left menu, under **Data storage**, click **Containers**
-  3. The name you gave your container (e.g., `product-images`) is your blob container name
-
-- **Connection String:**
-  1. In the Azure Portal, go to your Storage Account
-  2. In the left menu, under **Security + networking**, click **Access keys**
-  3. Under **key1** or **key2**, copy the **Connection string** value
-  4. Use this as your `AZURE_STORAGE_CONNECTION_STRING` in `.env.local`
-
-**Tip:** Never share your connection string publicly. Always restart your dev server after editing `.env.local`.
-
-### 8. Cursor Rules
-
-Create a `.cursor/rules` directory in your project and add the following rules:
-
-```markdown
----
-description: Frontend Component Standards
-globs: ["src/components/**/*"]
-alwaysApply: true
----
-
-- Use TypeScript for all components
-- Follow atomic design principles
-- Implement responsive design
-- Use Tailwind CSS for styling
+Generate `NEXTAUTH_SECRET`:
+```bash
+openssl rand -base64 32
 ```
 
-For more rule templates and examples, visit:
-- [Cursor Rules Documentation](https://docs.cursor.com/context/rules)
-- [Cursor Directory](https://cursor.directory) for community rules
+**Tip**: Ensure `.env.local` is listed in `.gitignore`.
 
-### 9. Project Structure
-
-```
-product-photo-gallery/
-├── .cursor/
-│   └── rules/
-├── src/
-│   ├── components/
-│   │   ├── pages/
-│   │   │   ├── api/
-│   │   │   │   ├── auth/
-│   │   │   │   └── users/
-│   │   │   │   
-│   │   │   │   
-│   │   │   │   
-│   │   │   └── models/
-├── public/
-└── package.json
-```
-
-## Development
+## 9. Development
 
 ```bash
 # Install dependencies
@@ -431,469 +406,157 @@ npm run dev
 npm run build
 
 # Start production server
-npm start
+npm run start
 ```
 
-## Database Management
+## 10. Database Management
 
-1. Use Azure Portal or Azure Data Studio for database management
-2. Implement proper error handling
-3. Use connection pooling
-4. Implement proper logging
-5. Monitor RU/s usage
+- Use **Azure Portal** or **Azure Data Studio** for Cosmos DB management.
+- Implement error handling and connection pooling in your code.
+- Monitor RU/s usage in Azure Portal to optimize costs.
 
-## Security
+## 11. Security
 
-1. Implement proper authentication with NextAuth.js
-2. Use proper authorization
-3. Implement proper input validation
-4. Use proper error handling
-5. Implement proper logging
-6. Use environment variables for sensitive data
+- Use **NextAuth.js** for authentication with Microsoft Entra ID.
+- Validate all user inputs.
+- Use environment variables for sensitive data.
+- Implement proper error handling and logging.
 
-## Environment Variables
+## 12. Deployment
 
-Create a `.env.local` file:
+1. Push code to GitHub.
+2. In Azure Portal, go to App Service > **Deployment Center**.
+3. Connect to your GitHub repository and branch.
+4. Configure environment variables in **App Service > Configuration**:
+   - Add all `.env.local` variables as application settings.
+   - Check **Deployment slot setting** for secrets (e.g., `COSMOS_KEY`, `NEXTAUTH_SECRET`).
+5. Deploy via GitHub Actions.
+6. Set up a custom domain and SSL in **App Service > Custom domains**.
+7. Enable monitoring in **App Service > Monitoring**.
 
-```env
-# Azure Cosmos DB
-COSMOS_ENDPOINT=your-cosmos-endpoint
-COSMOS_KEY=your-cosmos-key
-COSMOS_DATABASE=user-database
-COSMOS_CONTAINER=users
-
-# NextAuth
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your-nextauth-secret
-
-# Azure AD
-AZURE_AD_CLIENT_ID=your-client-id
-AZURE_AD_CLIENT_SECRET=your-client-secret
-AZURE_AD_TENANT_ID=your-tenant-id
-```
-
-## Deployment
-
-1. Push your code to GitHub
-2. Connect your Azure App Service to your GitHub repository
-3. Configure deployment settings in Azure Portal
-4. Deploy your application
-5. Configure environment variables in Azure App Service
-6. Set up proper monitoring
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Integrating MCP Servers (context7, sequential-thinking, puppeteer) with GitHub Copilot and Cursor
-
-### What are MCP Servers?
-MCP (Model Context Protocol) servers like context7, sequential-thinking, and puppeteer allow you to supercharge Copilot and Cursor with advanced context, reasoning, and automation capabilities.
-
-### 1. Add MCP Servers to GitHub Copilot and Cursor
-
-#### a. context7 (Rules Engine)
-- **Repo:** [context7/context7](https://github.com/context7/context7)
-- **Docs:** [context7.com](https://context7.com/)
-- **Usage:**
-  1. Clone the repo and follow the setup instructions.
-  2. Start the context7 MCP server locally or deploy it.
-  3. In Cursor or Copilot, go to settings and add the MCP server endpoint (e.g., `http://localhost:8000`).
-  4. Use context7 to search, apply, and manage rules for your project.
-- **Screenshot:**
-  ![context7 Home](Users/jaxenrimmerman/Downloads/context7-home-2025-06-08T00-12-05-738Z.png)
-  ![context7 GitHub](Users/jaxenrimmerman/Downloads/context7-github-2025-06-08T00-12-25-398Z.png)
-  ![context7 Copilot/Cursor Usage](Users/jaxenrimmerman/Downloads/context7-github-copilot-cursor-2025-06-08T00-13-49-908Z.png)
-
-#### b. sequential-thinking (Chain-of-Thought Reasoning)
-- **Repo:** [context7/sequential-thinking](https://github.com/context7/sequential-thinking)
-- **Usage:**
-  1. Clone and run the sequential-thinking MCP server.
-  2. Add its endpoint to Cursor/Copilot MCP settings.
-  3. Use it to enable advanced step-by-step reasoning in your AI workflows.
-- **Screenshot:**
-  ![sequential-thinking GitHub](Users/jaxenrimmerman/Downloads/sequential-thinking-github-2025-06-08T00-12-16-099Z.png)
-
-#### c. puppeteer-mcp (Automation & Screenshots)
-- **Repo:** [context7/puppeteer-mcp](https://github.com/context7/puppeteer-mcp)
-- **Usage:**
-  1. Clone and run the puppeteer-mcp server.
-  2. Add its endpoint to Cursor/Copilot MCP settings.
-  3. Use it to automate browser actions and take screenshots for documentation or testing.
-- **Screenshot:**
-  ![puppeteer-mcp GitHub](Users/jaxenrimmerman/Downloads/puppeteer-mcp-github-2025-06-08T00-13-22-995Z.png)
-
-### 2. Why Use These MCPs?
-- **context7:** Instantly search, apply, and enforce project rules. Great for onboarding and code consistency.
-- **sequential-thinking:** Get step-by-step, chain-of-thought reasoning for complex tasks.
-- **puppeteer-mcp:** Automate browser tasks, take screenshots, and generate visual documentation.
-
-### 3. More Resources
-- [context7.com](https://context7.com/) — Official docs and usage
-- [Cursor Rules Documentation](https://docs.cursor.com/context/rules)
-- [Cursor Directory](https://cursor.directory) — Search engine for rules
-
-### 10. GitHub Token Setup for Azure Web App
-
-To enable GitHub integration (for CI/CD, private repo access, or GitHub API calls), you need to generate a GitHub Personal Access Token and add it as an environment variable in your Azure Web App.
-
-#### a. Generate a GitHub Personal Access Token
-1. Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
-2. Click **Generate new token** (classic or fine-grained)
-3. Give it a name (e.g., "Azure Web App Token")
-4. Set an expiration (recommended: 90 days or less)
-5. Select the required scopes (usually `repo`, `workflow`, and `read:user`)
-6. Click **Generate token** and copy the token (starts with `ghp_...`)
-
-#### b. Add the Token to Azure Web App
-1. Go to the [Azure Portal](https://portal.azure.com/)
-2. Navigate to your App Service (Web App)
-3. In the left menu, select **Configuration** under **Settings**
-4. Click **+ New application setting**
-5. Set the name to `GITHUB_TOKEN` and paste your token as the value
-6. Click **OK** and then **Save** at the top
-
-**CLI alternative:**
-```sh
-az webapp config appsettings set --name <app-name> --resource-group <resource-group> --settings GITHUB_TOKEN=ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-```
-
-**Never commit your token to code or share it publicly.**
-
-### 11. Recommended Cursor/VS Code Rules for TypeScript/Next.js
-
-For best practices, code quality, and consistency, use the [front-end-cursor-rules](https://cursor.directory/front-end-cursor-rules) from cursor.directory. These rules are designed for React, Next.js, TypeScript, TailwindCSS, and modern UI/UX frameworks.
-
-#### How to Add These Rules in VS Code or Cursor
-
-1. **Open your project in VS Code or Cursor.**
-2. Open the integrated terminal.
-3. Run:
-   ```bash
-   npx cursor-directory rules add front-end-cursor-rules
-   ```
-4. This will fetch and add the recommended rules to your `.cursor/rules` directory.
-5. Review the rules in `.cursor/rules/front-end-cursor-rules.mdc` and adjust if needed.
-6. Restart Cursor or VS Code to ensure the rules are loaded.
-
-**Why use these rules?**
-- Enforces best practices for TypeScript, Next.js, React, and TailwindCSS
-- Ensures accessibility, naming, and code style standards
-- Helps new team members onboard quickly
-- Keeps your codebase clean and maintainable
-
-For more details, see [cursor.directory/front-end-cursor-rules](https://cursor.directory/front-end-cursor-rules)
-
-### 12. Example package.json and Explanation
-
-Below is a sample `package.json` for this project, including all required dependencies and scripts for a Next.js + TypeScript + TailwindCSS app:
+## 13. Example package.json
 
 ```json
 {
-  "devDependencies": {
-    "@types/node": "^22.15.30"
-  },
-  "dependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/next": "^8.0.7",
-    "@types/react": "^19.1.6",
-    "autoprefixer": "^10.4.21",
-    "bcryptjs": "^3.0.2",
-    "next": "^15.3.3",
-    "postcss": "^8.5.4",
-    "react": "^19.1.0",
-    "tailwindcss": "^4.1.8"
-  },
+  "name": "product-photo-gallery",
+  "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4.1.1",
+    "@azure/identity": "^4.4.1",
+    "next": "^15.3.3",
+    "next-auth": "^4.24.7",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "bcryptjs": "^3.0.2",
+    "tailwindcss": "^4.1.8",
+    "@tailwindcss/cli": "^4.1.8",
+    "postcss": "^8.5.4",
+    "autoprefixer": "^10.4.21"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.6",
+    "@types/bcryptjs": "^2.4.6",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^15.3.3",
+    "typescript": "^5.6.2"
   }
 }
 ```
 
-#### What each line does:
-- **devDependencies**: Packages needed only for development (type definitions for Node.js)
-- **dependencies**: Main packages for your app:
-  - `@types/bcryptjs`, `@types/react`: TypeScript type definitions for those libraries
-  - `autoprefixer`, `postcss`, `tailwindcss`: For Tailwind CSS styling
-  - `bcryptjs`: Password hashing for authentication
-  - `next`: The Next.js framework
-  - `react`: The React library
-- **scripts**:
-  - `dev`: Starts the Next.js development server (`npm run dev`)
-  - `build`: Builds the app for production (`npm run build`)
-  - `start`: Starts the production server (`npm run start`)
+## 14. Product Type Definition
 
-**Tip:** If you see `missing script: dev`, make sure your `package.json` includes the `scripts` section above.
+In `src/lib/db/models/product.ts`:
 
-### 13. Example GitHub Actions Workflow for Azure Deployment
-
-Below is a full sample `.github/workflows/azure-webapps-node.yml` for deploying a Node.js + Next.js app to Azure Web App, including Azure login:
-
-```yaml
-name: Build and deploy Node.js app to Azure Web App
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      # Checkout code
-      - uses: actions/checkout@v4
-
-      # Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22.x'
-
-      # Install dependencies and build
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build
-
-      # Login to Azure using a Service Principal
-      - name: 'Login to Azure'
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # Deploy to Azure Web App
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-          package: .
-```
-
-#### What each part does:
-- **on.push.branches.main**: Triggers the workflow on every push to the `main` branch
-- **jobs.build-and-deploy**: The main job for building and deploying
-- **runs-on: ubuntu-latest**: Uses the latest Ubuntu runner
-- **actions/checkout@v4**: Checks out your code
-- **actions/setup-node@v4**: Sets up Node.js 22.x for the build
-- **npm install, build**: Installs dependencies and builds your app
-- **azure/login@v2**: Logs in to Azure using a Service Principal (credentials stored in `AZURE_CREDENTIALS` secret)
-- **azure/webapps-deploy@v3**: Deploys your app to Azure Web App using the app name secret
-
-**Tip:**
-- You must set the secret `AZURE_CREDENTIALS` in your GitHub repo settings for this workflow to work.
-- This workflow is generated by Azure Deployment Center for Node.js/Next.js apps and is production-ready.
-
-### 14. Requesting a Code Review from GitHub Copilot
-
-With the latest GitHub Copilot features, you can now request an AI-powered code review directly from your pull request or code changes. This helps you catch bugs, improve code quality, and learn best practices—especially useful for new developers or teams.
-
-#### How to Request a Copilot Code Review
-1. Open a pull request in your GitHub repository.
-2. Look for the **Copilot** or **Copilot Chat** panel (if enabled for your repo).
-3. Click **Request Copilot Review** or use the Copilot Chat to ask for a review of your changes.
-4. Copilot will analyze your code, suggest improvements, and highlight potential issues or best practices.
-
-#### Benefits of Copilot Code Review
-- **Catches bugs and anti-patterns** before they reach production
-- **Suggests improvements** for readability, performance, and security
-- **Explains code** and best practices, helping you learn as you go
-- **Saves time** for both new and experienced developers
-- **Works 24/7**—get feedback instantly, even outside business hours
-
-**Tip:** Combine Copilot reviews with human code reviews for the best results!
-
-For more, see [GitHub Copilot documentation](https://docs.github.com/en/copilot).
-
-### 15. Azure App Service: Deployment Slot Setting for Environment Variables
-
-When adding environment variables (application settings) in Azure App Service, you'll see a checkbox called **Deployment slot setting**.
-
-#### What does it do?
-- If checked, the variable is **sticky** to the current slot (e.g., staging or production). It will NOT be swapped when you swap slots.
-- If unchecked, the variable is **shared** and will be swapped between slots during a deployment slot swap.
-
-#### When should you check it?
-- **Check it (make sticky):**
-  - For secrets, credentials, or any value that should be different between slots (e.g., `COSMOS_KEY`, `NEXTAUTH_SECRET`, `AZURE_AD_CLIENT_SECRET`, `NEXTAUTH_URL`)
-  - For slot-specific resources (e.g., different databases or storage for staging vs. production)
-- **Leave it unchecked:**
-  - For values that should be the same across all slots (e.g., feature flags, shared config)
-
-| Variable                        | Check "Deployment slot setting"? | Why?                                 |
-|----------------------------------|:-------------------------------:|--------------------------------------|
-| `COSMOS_KEY`                     | ✔️ Yes                          | Secret, likely different per slot    |
-| `COSMOS_ENDPOINT`                | ✔️ Yes (if using different DBs)  | DB endpoint may differ per slot      |
-| `NEXTAUTH_SECRET`                | ✔️ Yes                          | Secret, should not be swapped        |
-| `AZURE_AD_CLIENT_SECRET`         | ✔️ Yes                          | Secret, slot-specific                |
-| `NEXTAUTH_URL`                   | ✔️ Yes                          | Should match the slot's URL          |
-| `GITHUB_TOKEN`                   | ✔️ Yes (if using different tokens)| Secret, slot-specific                |
-| `AZURE_BLOB_CONTAINER`           | ✔️ Yes (if using different containers)| Slot-specific storage               |
-| Feature flag (e.g., `FEATURE_X`) | ❌ No                           | Same for all slots                   |
-
-#### For testing/dev purposes
-- If you are using a **single resource for both dev and prod** (e.g., one Cosmos DB, one storage account), it's OK to **leave the box unchecked** while you're getting started.
-- As your app grows, you should check the box and use separate resources for each slot/environment for better security and isolation.
-
-**Reference:** [Microsoft Docs: App settings and connection strings in Azure App Service](https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots#app-settings-and-connection-strings)
-
-### 16. Fixing Azure Login Error in GitHub Actions: Setting AZURE_CREDENTIALS (Azure Portal GUI Only)
-
-If you see an error like:
-```
-Error: Login failed with Error: Using auth-type: SERVICE_PRINCIPAL. Not all values are present. Ensure 'client-id' and 'tenant-id' are supplied.
-```
-This means your GitHub Actions workflow is missing the correct Azure credentials.
-
-#### How to Fix (Azure Portal Only)
-
-1. **Go to the [Azure Portal](https://portal.azure.com/)**
-2. **Create an App Registration (Service Principal):**
-   - Go to **Azure Active Directory** > **App registrations** > **New registration**
-   - Name: `github-actions-deploy` (or similar)
-   - Supported account types: leave as default
-   - Click **Register**
-3. **Create a Client Secret:**
-   - In your new app registration, go to **Certificates & secrets**
-   - Click **New client secret**
-   - Add a description and expiration, then click **Add**
-   - Copy the **Value** (this is your `clientSecret`)
-4. **Get the Required Values:**
-   - **clientId**: From the app registration's **Overview** page (Application (client) ID)
-   - **tenantId**: From the **Overview** page (Directory (tenant) ID)
-   - **clientSecret**: From the secret you just created
-   - **subscriptionId**: Go to **Subscriptions** in the Azure Portal and copy your Subscription ID
-5. **Assign the Contributor Role:**
-   - Go to **Subscriptions** > your subscription > **Access control (IAM)**
-   - Click **Add** > **Add role assignment**
-   - In the role selection panel, click **Privileged administrator roles** to see the **Contributor** role
-   - Role: **Contributor**
-   - Assign access to: **User, group, or service principal**
-   - Select: Search for your app registration name and select it
-   - Click **Save**
-6. **Create the AZURE_CREDENTIALS JSON:**
-   - Format:
-     ```json
-     {
-       "clientId": "YOUR_CLIENT_ID",
-       "clientSecret": "YOUR_CLIENT_SECRET",
-       "subscriptionId": "YOUR_SUBSCRIPTION_ID",
-       "tenantId": "YOUR_TENANT_ID"
-     }
-     ```
-7. **Add the AZURE_CREDENTIALS Secret to GitHub:**
-   - Go to your GitHub repo > **Settings** > **Secrets and variables** > **Actions**
-   - Click **New repository secret**
-   - Name: `AZURE_CREDENTIALS`
-   - Value: (paste the JSON from above)
-   - Click **Add secret**
-8. **Re-run your GitHub Actions workflow**
-   - Push a new commit or re-run the failed workflow. The Azure login step should now succeed.
-
-**Note:**
-- No CLI or Cloud Shell commands are required for this process. Use only the Azure Portal GUI for a smooth, future-proof setup.
-
-**Reference:** [Azure/login GitHub Action Docs](https://github.com/Azure/login#configure-a-service-principal-with-a-secret)
-
-**Why is the Contributor role required?**
-- The Contributor role allows the Entra app registration (Service Principal) to deploy, update, and manage resources in your Azure subscription as part of your GitHub Actions workflow.
-- This permission is necessary so that GitHub Actions can:
-  - Deploy your web app
-  - Update configuration and environment variables
-  - Manage related Azure resources (e.g., storage, databases) as needed by your deployment pipeline
-- Without this role, the deployment workflow would not have sufficient permissions to perform these actions in your Azure environment.
-
-**Security Note:**
-- The Contributor role grants broad permissions to manage resources, but does NOT allow access to secrets in Key Vault or change role assignments themselves.
-- Always assign the minimum permissions needed and use a dedicated Service Principal for CI/CD automation.
-
-## Product Type Definition
-
-The main product model is defined in `src/lib/db/models/product.ts`:
-
-```ts
+```typescript
 export interface Product {
   id: string;
   name: string;
   image: string;
   price: string;
   description?: string;
-  category?: string; // <-- Make sure this is present!
+  category?: string;
   createdAt: Date;
   updatedAt: Date;
   type: 'product';
 }
 ```
 
-> **Note:** If you add new fields (like `category`), make sure to update this interface so your backend and frontend stay in sync and you avoid type errors.
+**Note**: Update this interface if you add new fields to ensure type safety.
 
----
+## 15. Troubleshooting
 
-## Building the Project
+### Styling or Build Issues
 
-To build the app for production, run:
-
-```bash
-npm run build
-```
-
-This command compiles your Next.js/React app and checks for type errors. It ensures your code is ready for deployment and will catch any issues before you go live. Always run this before deploying or pushing to production!
-
----
-
-## Why React?
-
-This project uses **React** (via Next.js) because:
-- React is the most popular and widely supported UI library for building modern, interactive web apps.
-- It enables fast, component-based development and easy state management.
-- Next.js (built on React) adds server-side rendering, routing, and API support, making it ideal for scalable, production-ready apps.
-- The React ecosystem (including TailwindCSS, TypeScript, and more) makes it easy to build beautiful, maintainable, and high-performance user interfaces. 
-
----
-
-## Troubleshooting: Deleting `.next` and `node_modules`
-
-Sometimes you may run into issues like:
-- Styling not applying (e.g., TailwindCSS changes not showing up)
-- Build errors that don't make sense
-- Dependency problems after updating packages
-
-**When this happens, it's often helpful to delete the `.next` and `node_modules` directories and reinstall your dependencies.**
-
-### How to do it
+If Tailwind CSS or build processes fail:
 ```bash
 rm -rf .next node_modules
 npm install
 npm run dev
 ```
 
-### Why is this safe?
-- `.next` is just the build output for Next.js. It's always regenerated when you run `npm run dev` or `npm run build`.
-- `node_modules` contains your installed packages. It can always be recreated from your `package.json` and `package-lock.json`.
-- **Neither folder contains your source code or user data.**
+### Common Errors
 
-### When should you do this?
-- If you see weird errors after changing dependencies
-- If your styles (like Tailwind) aren't updating
-- If your app won't start after a package update
-- If you get errors about missing modules that you know are installed
+- **Cannot find module '@azure/cosmos'**: Run `npm install @azure/cosmos`.
+- **NextAuth.js errors**: Ensure `NEXTAUTH_SECRET` and Entra ID credentials are correct.
+- **Azure login error in GitHub Actions**: Verify `AZURE_CREDENTIALS` JSON format (see section 16).
+- **Styles not applying**: Check `src/styles/globals.css` exists and is imported in `pages/_app.tsx`.
 
-**This is a safe, standard troubleshooting step for all Node.js/Next.js projects.**
+For specific errors, search [Stack Overflow](https://stackoverflow.com) or [GitHub Issues](https://github.com) and provide the URL to your AI assistant for tailored fixes.
 
-## Troubleshooting Tips
+## 16. Fixing Azure Login Error in GitHub Actions
 
-If you get stuck on a specific error:
-- Search for the error message online (Stack Overflow, GitHub Issues, official docs, etc.).
-- If you find a discussion, blog post, or solution that seems promising, **copy the URL**.
-- Provide the URL to the agent (AI assistant) and ask it to review and fix the issue using the findings from that page.
-- This helps the agent give you a solution that is up-to-date and tailored to your exact problem. 
+If you see:
+
+```
+Error: Login failed with Error: Using auth-type: SERVICE_PRINCIPAL. Not all values are present.
+```
+
+### Fix: Set AZURE_CREDENTIALS
+
+1. In Azure Portal, go to **Microsoft Entra ID > App registrations > New registration**.
+2. Name: `github-actions-deploy`.
+3. Click **Register**.
+4. Create a client secret:
+   - Go to **Certificates & secrets > New client secret**.
+   - Copy the **Value** (`clientSecret`).
+5. Get values:
+   - **clientId**: From **Overview** (Application ID).
+   - **tenantId**: From **Overview** (Directory ID).
+   - **subscriptionId**: From **Subscriptions** in Azure Portal.
+6. Assign the Contributor role:
+   - Go to **Subscriptions > Your subscription > Access control (IAM)**.
+   - Click **Add role assignment > Contributor**.
+   - Select your app registration and save.
+7. Create `AZURE_CREDENTIALS` JSON:
+   ```json
+   {
+     "clientId": "YOUR_CLIENT_ID",
+     "clientSecret": "YOUR_CLIENT_SECRET",
+     "subscriptionId": "YOUR_SUBSCRIPTION_ID",
+     "tenantId": "YOUR_TENANT_ID"
+   }
+   ```
+8. Add to GitHub:
+   - Go to GitHub repository > **Settings > Secrets and variables > Actions**.
+   - Add secret: Name: `AZURE_CREDENTIALS`, Value: (paste JSON).
+9. Re-run the workflow.
+
+## 17. Contributing
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/amazing-feature`.
+3. Commit changes: `git commit -m 'Add amazing feature'`.
+4. Push to the branch: `git push origin feature/amazing-feature`.
+5. Open a Pull Request.
+
+## 18. License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.

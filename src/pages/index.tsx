@@ -51,45 +51,54 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="p-4 bg-blue-600 text-white text-center text-2xl font-bold shadow">Product Photo Gallery</header>
-      <main className="p-8">
-        {editingProduct ? (
-          <ProductForm
-            key={editingProduct.id}
-            onProductAdded={handleProductUpdated}
-            initialProduct={editingProduct}
-            mode="edit"
-            onCancel={() => setEditingProduct(null)}
-          />
-        ) : (
-          <ProductForm onProductAdded={fetchProducts} />
-        )}
-        {loading && <div className="text-center text-gray-500">Loading products...</div>}
-        {error && <div className="text-center text-red-600 mb-4">{error}</div>}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              name={product.name}
-              image={product.image}
-              price={product.price}
-              description={product.description}
-              category={product.category}
-              onAddToCart={() => alert(`Added ${product.name} to cart!`)}
-              onEdit={() => handleEditProduct(product)}
-              onDelete={() => setShowConfirmDelete({ id: product.id, name: product.name })}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+      <header className="p-8 bg-gradient-to-r from-blue-700 to-blue-500 text-white text-center shadow-lg rounded-b-3xl mb-8">
+        <h1 className="text-4xl font-extrabold tracking-tight drop-shadow-lg">Product Photo Gallery</h1>
+        <p className="mt-2 text-lg font-medium text-blue-100">Showcase and manage your products in style</p>
+      </header>
+      <main className="max-w-6xl mx-auto px-4">
+        <section className="mb-12">
+          {editingProduct ? (
+            <ProductForm
+              key={editingProduct.id}
+              onProductAdded={handleProductUpdated}
+              initialProduct={editingProduct}
+              mode="edit"
+              onCancel={() => setEditingProduct(null)}
             />
-          ))}
-        </div>
-        {!loading && products.length === 0 && !error && (
-          <div className="text-center text-gray-500">No products found.</div>
-        )}
+          ) : (
+            <ProductForm onProductAdded={fetchProducts} />
+          )}
+        </section>
+        {loading && <div className="text-center text-blue-500 font-semibold">Loading products...</div>}
+        {error && <div className="text-center text-red-600 mb-4">{error}</div>}
+        <section>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                name={product.name}
+                image={product.image}
+                price={product.price}
+                description={product.description}
+                category={product.category}
+                onAddToCart={() => alert(`Added ${product.name} to cart!`)}
+                onEdit={() => handleEditProduct(product)}
+                onDelete={() => setShowConfirmDelete({ id: product.id, name: product.name })}
+              />
+            ))}
+          </div>
+          {!loading && products.length === 0 && !error && (
+            <div className="text-center text-gray-400 mt-12 text-lg">No products found.</div>
+          )}
+        </section>
         {/* Delete confirmation dialog */}
         {showConfirmDelete && (
           <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
-            <div className="bg-white rounded-xl shadow-xl p-8 max-w-sm w-full flex flex-col items-center">
-              <div className="text-lg font-semibold mb-4 text-center">Delete <span className="text-red-600">{showConfirmDelete.name}</span>?</div>
+            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full flex flex-col items-center border border-gray-100">
+              <div className="text-lg font-semibold mb-4 text-center">
+                Delete <span className="text-red-600">{showConfirmDelete.name}</span>?
+              </div>
               <div className="flex gap-4 mt-2">
                 <button
                   className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold"

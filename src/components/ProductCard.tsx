@@ -45,7 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, image, price, descripti
         </button>
       )}
     </div>
-    <div className="w-28 h-28 flex items-center justify-center mb-4 bg-gray-100 rounded-xl overflow-hidden border border-gray-200">
+    <div className="w-36 h-36 flex items-center justify-center mb-4 bg-gray-100 rounded-xl overflow-hidden border border-gray-200">
       <img
         src={image}
         alt={name}

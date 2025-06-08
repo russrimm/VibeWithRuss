@@ -70,7 +70,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onProductAdded, initialProduc
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-8 mb-12 max-w-2xl mx-auto flex flex-col gap-8 border border-gray-100"
+      className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-8 mb-12 max-w-2xl mx-auto flex flex-col gap-8 border border-gray-100"
       aria-label={mode === 'edit' ? 'Edit Product Form' : 'Add Product Form'}
     >
       <h2 className="text-2xl font-extrabold mb-2 text-center tracking-tight text-gray-900">
@@ -131,7 +131,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ onProductAdded, initialProduc
           type="submit"
           className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-xl px-6 py-3 shadow-lg hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all text-lg disabled:opacity-60"
           disabled={loading}
-          aria-busy={!!loading}
         >
           {loading ? (mode === 'edit' ? 'Saving...' : 'Adding...') : (mode === 'edit' ? 'Save Changes' : 'Add Product')}
         </button>
