@@ -12,6 +12,18 @@ A modern web application built with Next.js, TypeScript, and Azure services for 
 
 ## Getting Started
 
+### 0. Recommended: Use the Official Next.js + Tailwind Starter
+
+For the easiest and most reliable setup with Tailwind v4+, start your project using the official Next.js + Tailwind template:
+
+```bash
+npx create-next-app@latest my-app -e with-tailwindcss
+```
+
+This ensures all configuration and dependencies are correct for Tailwind v4+ and Next.js. You can then copy your code into this new project or use it as a reference for your own setup.
+
+---
+
 ### 1. Development Environment Setup
 
 1. Install Node.js from [nodejs.org](https://nodejs.org/)
