@@ -71,6 +71,26 @@ git checkout -b feature/your-feature-name
 2. Click on the latest workflow run to see build/deploy status
 3. Fix any errors and push again if needed
 
+#### What are commits, pull requests, and merging?
+
+- **Commit:**
+  - A commit is a snapshot of your code changes. Each commit has a message describing what changed. Commits let you track the history of your project and roll back if needed.
+  - You create a commit after staging your changes with `git add` and then running `git commit -m "message"`.
+
+- **Pull Request (PR):**
+  - A pull request is a request to merge your changes from one branch (e.g., a feature branch) into another (usually `main`).
+  - PRs let you review, discuss, and test changes before they become part of the main codebase. They are essential for collaboration and code quality.
+  - In GitHub, you create a PR after pushing your branch. Team members (or Copilot) can review and approve it.
+
+- **Merging:**
+  - Merging is the process of integrating changes from one branch into another. When a PR is approved, you merge it to make the changes part of the main branch.
+  - This updates the main branch with your new features, bug fixes, or improvements.
+
+**Why use this process?**
+- Ensures code is reviewed and tested before going live
+- Prevents conflicts and mistakes in the main codebase
+- Makes it easy to track, discuss, and roll back changes if needed
+
 ### 3. Azure Deployment YAML (Node.js + Next.js)
 
 Azure can auto-generate a GitHub Actions workflow for Node.js/Next.js deployments:
