@@ -3,6 +3,8 @@ import { ProductRepository } from '../../lib/db/repositories/productRepo';
 
 const productRepo = new ProductRepository();
 
+// For GET/PUT/DELETE by id, see ./products/[id].ts
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     const products = await productRepo.getAllProducts();

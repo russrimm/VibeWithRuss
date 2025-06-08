@@ -29,41 +29,31 @@ A modern web application built with Next.js, TypeScript, and Azure services for 
 6. **Initialize with a README** (recommended)
 7. Click **Create repository**
 
-#### b. Clone the Repository Locally
-```bash
-git clone https://github.com/YOUR_USERNAME/product-photo-gallery.git
-cd product-photo-gallery
-```
+#### b. Clone the Repository Locally (with GitHub Desktop)
+1. Open [GitHub Desktop](https://desktop.github.com/)
+2. Go to **File > Clone repository**
+3. Find your repo in the list or paste the URL (e.g., `https://github.com/YOUR_USERNAME/product-photo-gallery.git`)
+4. Click **Clone**
 
-#### c. Create a New Branch
-```bash
-git checkout -b feature/your-feature-name
-```
+#### c. Create a New Branch (with GitHub Desktop)
+1. In GitHub Desktop, click the **Current Branch** dropdown (top center)
+2. Click **New Branch**
+3. Name your branch (e.g., `feature/your-feature-name`)
+4. Click **Create Branch**
 
-#### d. Make Changes, Pull, and Push
-- Make your code changes
-- Check status:
-  ```bash
-  git status
-  ```
-- Stage and commit:
-  ```bash
-  git add .
-  git commit -m "Describe your changes"
-  ```
-- Pull latest changes from main (resolve conflicts if any):
-  ```bash
-  git pull origin main
-  ```
-- Push your branch:
-  ```bash
-  git push origin feature/your-feature-name
-  ```
+#### d. Make Changes, Pull, and Push (with GitHub Desktop)
+1. Make your code changes in your editor (e.g., VS Code)
+2. Go back to GitHub Desktop
+3. You'll see changed files listed on the left
+4. Enter a summary for your changes at the bottom left
+5. Click **Commit to [your branch name]**
+6. Click **Repository > Pull origin** to get the latest changes from GitHub (do this before pushing if others are working on the repo)
+7. Click **Push origin** (top bar) to upload your branch and commits to GitHub
 
 #### e. Create a Pull Request (PR)
-1. Go to your repo on GitHub
-2. Click **Compare & pull request**
-3. Add a description and submit the PR
+1. After pushing, GitHub Desktop will show a button: **Create Pull Request**
+2. Click it to open GitHub in your browser
+3. Fill in the PR details and submit
 4. Wait for review/merge
 
 #### f. Check GitHub Actions Status
@@ -151,14 +141,18 @@ cd product-photo-gallery
 # Create Next.js project with TypeScript
 npx create-next-app@latest . --typescript --tailwind --eslint
 
-# Install dependencies (including Azure Cosmos DB SDK)
-npm install @azure/cosmos @azure/identity next-auth tailwindcss postcss autoprefixer react next @types/react @types/node @types/bcryptjs bcryptjs
+# Install dependencies (including Azure Cosmos DB SDK and Tailwind v4)
+npm install @azure/cosmos @azure/identity next-auth tailwindcss @tailwindcss/cli postcss autoprefixer react next @types/react @types/node @types/bcryptjs bcryptjs
 
 # If npm reports vulnerabilities, run:
 npm audit fix
 ```
 
 - If you see an error like `Cannot find module '@azure/cosmos'`, make sure you have run the above `npm install` command. This package is required for Cosmos DB integration and includes its own TypeScript types.
+
+> **Tailwind v4 Note:**
+> - Tailwind CSS v4 splits the CLI into a separate package. You must install **both** `tailwindcss` and `@tailwindcss/cli` for commands like `npx tailwindcss init` to work.
+> - If you get an error like "could not determine executable to run" when running `npx tailwindcss init`, make sure you have installed both packages.
 
 ### 5. VS Code Setup
 
@@ -778,4 +772,75 @@ This means your GitHub Actions workflow is missing the correct Azure credentials
 - The Contributor role grants broad permissions to manage resources, but does NOT allow access to secrets in Key Vault or change role assignments themselves.
 - Always assign the minimum permissions needed and use a dedicated Service Principal for CI/CD automation.
 
---- 
+## Product Type Definition
+
+The main product model is defined in `src/lib/db/models/product.ts`:
+
+```ts
+export interface Product {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  description?: string;
+  category?: string; // <-- Make sure this is present!
+  createdAt: Date;
+  updatedAt: Date;
+  type: 'product';
+}
+```
+
+> **Note:** If you add new fields (like `category`), make sure to update this interface so your backend and frontend stay in sync and you avoid type errors.
+
+---
+
+## Building the Project
+
+To build the app for production, run:
+
+```bash
+npm run build
+```
+
+This command compiles your Next.js/React app and checks for type errors. It ensures your code is ready for deployment and will catch any issues before you go live. Always run this before deploying or pushing to production!
+
+---
+
+## Why React?
+
+This project uses **React** (via Next.js) because:
+- React is the most popular and widely supported UI library for building modern, interactive web apps.
+- It enables fast, component-based development and easy state management.
+- Next.js (built on React) adds server-side rendering, routing, and API support, making it ideal for scalable, production-ready apps.
+- The React ecosystem (including TailwindCSS, TypeScript, and more) makes it easy to build beautiful, maintainable, and high-performance user interfaces. 
+
+---
+
+## Troubleshooting: Deleting `.next` and `node_modules`
+
+Sometimes you may run into issues like:
+- Styling not applying (e.g., TailwindCSS changes not showing up)
+- Build errors that don't make sense
+- Dependency problems after updating packages
+
+**When this happens, it's often helpful to delete the `.next` and `node_modules` directories and reinstall your dependencies.**
+
+### How to do it
+```bash
+rm -rf .next node_modules
+npm install
+npm run dev
+```
+
+### Why is this safe?
+- `.next` is just the build output for Next.js. It's always regenerated when you run `npm run dev` or `npm run build`.
+- `node_modules` contains your installed packages. It can always be recreated from your `package.json` and `package-lock.json`.
+- **Neither folder contains your source code or user data.**
+
+### When should you do this?
+- If you see weird errors after changing dependencies
+- If your styles (like Tailwind) aren't updating
+- If your app won't start after a package update
+- If you get errors about missing modules that you know are installed
+
+**This is a safe, standard troubleshooting step for all Node.js/Next.js projects.** 
