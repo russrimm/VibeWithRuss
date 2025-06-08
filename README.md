@@ -165,9 +165,42 @@ npm audit fix
 
 - If you see an error like `Cannot find module '@azure/cosmos'`, make sure you have run the above `npm install` command. This package is required for Cosmos DB integration and includes its own TypeScript types.
 
-> **Tailwind v4 Note:**
-> - Tailwind CSS v4 splits the CLI into a separate package. You must install **both** `tailwindcss` and `@tailwindcss/cli` for commands like `npx tailwindcss init` to work.
-> - If you get an error like "could not determine executable to run" when running `npx tailwindcss init`, make sure you have installed both packages.
+## Tailwind CSS Setup (v4+)
+
+1. **Install Tailwind, PostCSS, and the Tailwind PostCSS plugin:**
+
+   ```sh
+   npm install tailwindcss @tailwindcss/postcss postcss --save-dev
+   ```
+
+2. **Configure PostCSS:**
+
+   In `postcss.config.js`:
+   ```js
+   module.exports = {
+     plugins: {
+       '@tailwindcss/postcss': {},
+       autoprefixer: {},
+     },
+   }
+   ```
+
+   > **Note:** Do **not** use `tailwindcss: {}` as the plugin key. Use `@tailwindcss/postcss` as shown above. See: [Tailwind PostCSS docs](https://tailwindcss.com/docs/installation/using-postcss)
+
+3. **Import Tailwind in your CSS:**
+
+   In your main CSS file (e.g. `src/styles/globals.css`):
+   ```css
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   ```
+
+4. **Restart your dev server:**
+
+   ```sh
+   npm run dev
+   ```
 
 > **Note:** This project requires `@azure/cosmos` version **4.48.2 or higher**. Make sure your `package.json` includes:
 > ```json
