@@ -154,18 +154,10 @@ product-photo-gallery/
 │   │   ├── api/
 │   │   │   ├── auth/
 │   │   │   └── users/
-│   ├── styles/
-│   ├── utils/
-│   ├── lib/
-│   │   ├── db/
-│   │   │   ├── cosmos.ts
-│   │   │   ├── models/
-│   │   │   │   └── user.ts
-│   │   │   └── repositories/
-│   │   │       └── userRepo.ts
-│   │   └── auth/
-│   │       └── [...nextauth].ts
-│   └── models/
+│   │   │   
+│   │   │   
+│   │   │   
+│   │   └── models/
 ├── public/
 └── package.json
 ```
@@ -243,4 +235,81 @@ AZURE_AD_TENANT_ID=your-tenant-id
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Integrating MCP Servers (context7, sequential-thinking, puppeteer) with GitHub Copilot and Cursor
+
+### What are MCP Servers?
+MCP (Model Context Protocol) servers like context7, sequential-thinking, and puppeteer allow you to supercharge Copilot and Cursor with advanced context, reasoning, and automation capabilities.
+
+### 1. Add MCP Servers to GitHub Copilot and Cursor
+
+#### a. context7 (Rules Engine)
+- **Repo:** [context7/context7](https://github.com/context7/context7)
+- **Docs:** [context7.com](https://context7.com/)
+- **Usage:**
+  1. Clone the repo and follow the setup instructions.
+  2. Start the context7 MCP server locally or deploy it.
+  3. In Cursor or Copilot, go to settings and add the MCP server endpoint (e.g., `http://localhost:8000`).
+  4. Use context7 to search, apply, and manage rules for your project.
+- **Screenshot:**
+  ![context7 Home](Users/jaxenrimmerman/Downloads/context7-home-2025-06-08T00-12-05-738Z.png)
+  ![context7 GitHub](Users/jaxenrimmerman/Downloads/context7-github-2025-06-08T00-12-25-398Z.png)
+  ![context7 Copilot/Cursor Usage](Users/jaxenrimmerman/Downloads/context7-github-copilot-cursor-2025-06-08T00-13-49-908Z.png)
+
+#### b. sequential-thinking (Chain-of-Thought Reasoning)
+- **Repo:** [context7/sequential-thinking](https://github.com/context7/sequential-thinking)
+- **Usage:**
+  1. Clone and run the sequential-thinking MCP server.
+  2. Add its endpoint to Cursor/Copilot MCP settings.
+  3. Use it to enable advanced step-by-step reasoning in your AI workflows.
+- **Screenshot:**
+  ![sequential-thinking GitHub](Users/jaxenrimmerman/Downloads/sequential-thinking-github-2025-06-08T00-12-16-099Z.png)
+
+#### c. puppeteer-mcp (Automation & Screenshots)
+- **Repo:** [context7/puppeteer-mcp](https://github.com/context7/puppeteer-mcp)
+- **Usage:**
+  1. Clone and run the puppeteer-mcp server.
+  2. Add its endpoint to Cursor/Copilot MCP settings.
+  3. Use it to automate browser actions and take screenshots for documentation or testing.
+- **Screenshot:**
+  ![puppeteer-mcp GitHub](Users/jaxenrimmerman/Downloads/puppeteer-mcp-github-2025-06-08T00-13-22-995Z.png)
+
+### 2. Why Use These MCPs?
+- **context7:** Instantly search, apply, and enforce project rules. Great for onboarding and code consistency.
+- **sequential-thinking:** Get step-by-step, chain-of-thought reasoning for complex tasks.
+- **puppeteer-mcp:** Automate browser tasks, take screenshots, and generate visual documentation.
+
+### 3. More Resources
+- [context7.com](https://context7.com/) — Official docs and usage
+- [Cursor Rules Documentation](https://docs.cursor.com/context/rules)
+- [Cursor Directory](https://cursor.directory) — Search engine for rules
+
+### 9. GitHub Token Setup for Azure Web App
+
+To enable GitHub integration (for CI/CD, private repo access, or GitHub API calls), you need to generate a GitHub Personal Access Token and add it as an environment variable in your Azure Web App.
+
+#### a. Generate a GitHub Personal Access Token
+1. Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
+2. Click **Generate new token** (classic or fine-grained)
+3. Give it a name (e.g., "Azure Web App Token")
+4. Set an expiration (recommended: 90 days or less)
+5. Select the required scopes (usually `repo`, `workflow`, and `read:user`)
+6. Click **Generate token** and copy the token (starts with `ghp_...`)
+
+#### b. Add the Token to Azure Web App
+1. Go to the [Azure Portal](https://portal.azure.com/)
+2. Navigate to your App Service (Web App)
+3. In the left menu, select **Configuration** under **Settings**
+4. Click **+ New application setting**
+5. Set the name to `GITHUB_TOKEN` and paste your token as the value
+6. Click **OK** and then **Save** at the top
+
+**CLI alternative:**
+```sh
+az webapp config appsettings set --name <app-name> --resource-group <resource-group> --settings GITHUB_TOKEN=ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
+**Never commit your token to code or share it publicly.**
+
+--- 
