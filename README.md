@@ -141,18 +141,6 @@ jobs:
 - Never use the Azure Portal's "publish profile" workflow generator.
 - If you see a workflow step referencing `publish-profile`, replace it with Service Principal authentication as described above.
 
-## ⚠️ GitHub Actions OIDC/Federated Identity Permissions
-
-If you use OIDC (federated identity) for Azure login in GitHub Actions, you MUST add this block at the top level of your workflow YAML:
-
-```yaml
-permissions:
-  id-token: write
-  contents: read
-```
-
-Without this, Azure login will fail with errors about `id-token` or `federated token`. Always include this block for secure, modern Azure deployments.
-
 ### 4. Local Project Setup
 
 ```bash
