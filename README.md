@@ -124,12 +124,14 @@ cd product-photo-gallery
 # Create Next.js project with TypeScript
 npx create-next-app@latest . --typescript --tailwind --eslint
 
-# Install required dependencies
-npm install @azure/cosmos @azure/identity next-auth
+# Install dependencies (including Azure Cosmos DB SDK)
+npm install @azure/cosmos @azure/identity next-auth tailwindcss postcss autoprefixer react next @types/react @types/node @types/bcryptjs @types/next @types/next-auth bcryptjs
 
 # If npm reports vulnerabilities, run:
 npm audit fix
 ```
+
+- If you see an error like `Cannot find module '@azure/cosmos'`, make sure you have run the above `npm install` command. This package is required for Cosmos DB integration and includes its own TypeScript types.
 
 ### 5. VS Code Setup
 
@@ -167,48 +169,147 @@ npm audit fix
    - Azure Cosmos DB (for user data)
    - Azure Active Directory (for authentication)
 
-#### Azure Cosmos DB Setup
+#### 7a. Creating Azure Cosmos DB and Getting Credentials
 
-1. Create a new Cosmos DB account:
-   ```bash
-   # Using Azure CLI
-   az cosmosdb create --name your-cosmos-account --resource-group your-resource-group --locations regionName=your-location --default-consistency-level Session
-   ```
+To use Cosmos DB, you must create an instance in Azure and get the connection details for your `.env.local` file.
 
-2. Create a database and container:
-   ```bash
-   # Create database
-   az cosmosdb sql database create --account-name your-cosmos-account --name user-database --resource-group your-resource-group
+#### How to Create a Cosmos DB Instance
+1. Go to the [Azure Portal](https://portal.azure.com/)
+2. Click **Create a resource** > **Databases** > **Azure Cosmos DB**
+3. Choose **Core (SQL) - Recommended**
+4. Fill in the required fields:
+   - **Subscription**: Your Azure subscription
+   - **Resource Group**: Create new or use existing
+   - **Account Name**: Unique name for your Cosmos DB account
+   - **API**: Core (SQL)
+   - **Region**: Choose a region close to you
+5. Click **Review + create** and then **Create**
+6. Wait for deployment to complete
 
-   # Create users container
-   az cosmosdb sql container create --account-name your-cosmos-account --database-name user-database --name users --resource-group your-resource-group --partition-key-path "/email" --throughput 400
-   ```
+#### Create Database and Container
+1. In your Cosmos DB account, go to **Data Explorer**
+2. Click **New Database**
+   - Name: `user-database` (or your choice)
+3. Click **New Container**
+   - Database: `user-database`
+   - Container ID: `users` (or your choice)
+   - Partition key: `/email`
+   - Throughput: 400 RU/s (default is fine for dev)
 
-3. Initial data model:
-   ```typescript
-   // src/lib/db/models/user.ts
-   interface User {
-     id: string;
-     email: string;
-     passwordHash: string;
-     createdAt: Date;
-     lastLogin: Date;
-     isActive: boolean;
-     settings: {
-       theme: 'light' | 'dark';
-       notifications: boolean;
-       preferences: Record<string, any>;
-     };
-     roles: string[];
-     type: 'user';
-   }
-   ```
+#### Get Your Endpoint and Key
+1. In your Cosmos DB account, go to **Keys** in the left menu
+2. Copy the **URI** (this is your `COSMOS_ENDPOINT`)
+3. Copy the **PRIMARY KEY** (this is your `COSMOS_KEY`)
 
-4. Configure security:
-   - Enable Azure AD authentication
-   - Set up network security rules
-   - Configure private endpoints if needed
-   - Enable encryption at rest
+#### Add to `.env.local`
+Create a `.env.local` file in your project root with:
+
+```env
+COSMOS_ENDPOINT=your-cosmos-endpoint-url
+COSMOS_KEY=your-cosmos-key
+COSMOS_DATABASE=user-database
+COSMOS_CONTAINER=users
+```
+
+**Tip:** Never commit `.env.local` to your repo. Always restart your dev server after editing this file.
+
+#### 7b. Azure Entra (Azure AD) App Registration for Authentication
+
+To use Azure Active Directory (now Azure Entra ID) for authentication, follow these steps to register your app, set permissions, and get the values for your `.env.local` file.
+
+#### How to Register an App in Azure Entra (Azure AD)
+1. Go to the [Azure Portal](https://portal.azure.com/)
+2. Navigate to **Azure Active Directory** (or **Microsoft Entra ID**) > **App registrations**
+3. Click **New registration**
+4. Set a **Name** (e.g., `Product Photo Gallery App`)
+5. **Supported account types**: Choose as needed (single-tenant or multi-tenant)
+6. **Redirect URI**: Set to `http://localhost:3000/api/auth/callback/azure-ad` for local dev (add your production URI later)
+7. Click **Register**
+
+#### Important: Token Settings for Authentication
+- In your app registration, go to **Authentication**.
+- Under **Implicit grant and hybrid flows**:
+  - **Check** ✔️ **ID tokens (used for implicit and hybrid flows)** (required for NextAuth.js/OpenID Connect login)
+  - **Check** Access tokens (for implicit flows) **only if** you need to call APIs from the browser (not needed for most Next.js/NextAuth.js setups)
+
+| Token Type   | Enable? | When?                                              |
+|--------------|---------|----------------------------------------------------|
+| ID tokens    | ✔️ Yes  | Always, for OpenID Connect/NextAuth.js login       |
+| Access tokens| Optional| Only if calling APIs from browser (SPA scenario)   |
+
+#### Generate a Client Secret
+1. In your app registration, go to **Certificates & secrets**
+2. Click **New client secret**
+3. Add a description and expiration, then click **Add**
+4. Copy the **Value** (this is your `AZURE_AD_CLIENT_SECRET`)
+
+#### Set API Permissions
+1. Go to **API permissions**
+2. By default, `User.Read` is included (sufficient for basic sign-in)
+3. To enable profile/email info, click **Add a permission** > **Microsoft Graph** > **Delegated permissions** and add:
+   - `openid`
+   - `profile`
+   - `email`
+   - (Optional) `offline_access` for refresh tokens
+4. Click **Grant admin consent** if required
+
+#### Get Your App Credentials
+- **AZURE_AD_CLIENT_ID**: From the app registration's **Overview** page
+- **AZURE_AD_CLIENT_SECRET**: From the secret you created above
+- **AZURE_AD_TENANT_ID**: From the **Overview** page (Directory (tenant) ID)
+
+#### Add to `.env.local`
+```env
+AZURE_AD_CLIENT_ID=your-client-id
+AZURE_AD_CLIENT_SECRET=your-client-secret
+AZURE_AD_TENANT_ID=your-tenant-id
+```
+
+#### Update Redirect URIs for Production
+- In the app registration, go to **Authentication** > **Redirect URIs**
+- Add your production callback URL (e.g., `https://yourdomain.com/api/auth/callback/azure-ad`)
+
+**Tip:** Never commit `.env.local` to your repo. Always restart your dev server after editing this file.
+
+### 7c. Creating Azure Blob Storage for Product Images
+
+For storing and serving product images, you should use **Azure Blob Storage** (not Data Lake Gen2 or Azure Files).
+
+#### Why Azure Blob Storage?
+- Optimized for storing and serving unstructured data like images, videos, and documents
+- Standard choice for web apps needing to upload, store, and serve files
+- Easy to integrate with your app and supports public/private access
+
+#### Do NOT use:
+- **Azure Data Lake Storage Gen2** (for analytics/big data scenarios)
+- **Azure Files** (for SMB file shares, not web images)
+
+#### How to Create Azure Blob Storage
+1. In the [Azure Portal](https://portal.azure.com/), click **Create a resource** > **Storage** > **Storage account**
+2. Fill in the required fields (Subscription, Resource Group, Storage account name, Region)
+3. **Performance**: Standard (default)
+4. **Redundancy**: Locally-redundant storage (LRS) is fine for dev
+5. **Enable Blob Storage** (default)
+6. Click **Review + create** and then **Create**
+7. After deployment, go to your storage account
+8. In the left menu, under **Data storage**, click **Containers**
+9. Click **+ Container** and name it (e.g., `product-images`)
+10. Set **Public access level** as needed (private for uploads, blob for public read access)
+
+#### Where to Find Your Blob Container Name and Connection String
+
+- **Blob Container Name:**
+  1. In the Azure Portal, go to your Storage Account
+  2. In the left menu, under **Data storage**, click **Containers**
+  3. The name you gave your container (e.g., `product-images`) is your blob container name
+
+- **Connection String:**
+  1. In the Azure Portal, go to your Storage Account
+  2. In the left menu, under **Security + networking**, click **Access keys**
+  3. Under **key1** or **key2**, copy the **Connection string** value
+  4. Use this as your `AZURE_STORAGE_CONNECTION_STRING` in `.env.local`
+
+**Tip:** Never share your connection string publicly. Always restart your dev server after editing `.env.local`.
 
 ### 8. Cursor Rules
 
@@ -551,5 +652,37 @@ With the latest GitHub Copilot features, you can now request an AI-powered code 
 **Tip:** Combine Copilot reviews with human code reviews for the best results!
 
 For more, see [GitHub Copilot documentation](https://docs.github.com/en/copilot).
+
+### 15. Azure App Service: Deployment Slot Setting for Environment Variables
+
+When adding environment variables (application settings) in Azure App Service, you'll see a checkbox called **Deployment slot setting**.
+
+#### What does it do?
+- If checked, the variable is **sticky** to the current slot (e.g., staging or production). It will NOT be swapped when you swap slots.
+- If unchecked, the variable is **shared** and will be swapped between slots during a deployment slot swap.
+
+#### When should you check it?
+- **Check it (make sticky):**
+  - For secrets, credentials, or any value that should be different between slots (e.g., `COSMOS_KEY`, `NEXTAUTH_SECRET`, `AZURE_AD_CLIENT_SECRET`, `NEXTAUTH_URL`)
+  - For slot-specific resources (e.g., different databases or storage for staging vs. production)
+- **Leave it unchecked:**
+  - For values that should be the same across all slots (e.g., feature flags, shared config)
+
+| Variable                        | Check "Deployment slot setting"? | Why?                                 |
+|----------------------------------|:-------------------------------:|--------------------------------------|
+| `COSMOS_KEY`                     | ✔️ Yes                          | Secret, likely different per slot    |
+| `COSMOS_ENDPOINT`                | ✔️ Yes (if using different DBs)  | DB endpoint may differ per slot      |
+| `NEXTAUTH_SECRET`                | ✔️ Yes                          | Secret, should not be swapped        |
+| `AZURE_AD_CLIENT_SECRET`         | ✔️ Yes                          | Secret, slot-specific                |
+| `NEXTAUTH_URL`                   | ✔️ Yes                          | Should match the slot's URL          |
+| `GITHUB_TOKEN`                   | ✔️ Yes (if using different tokens)| Secret, slot-specific                |
+| `AZURE_BLOB_CONTAINER`           | ✔️ Yes (if using different containers)| Slot-specific storage               |
+| Feature flag (e.g., `FEATURE_X`) | ❌ No                           | Same for all slots                   |
+
+#### For testing/dev purposes
+- If you are using a **single resource for both dev and prod** (e.g., one Cosmos DB, one storage account), it's OK to **leave the box unchecked** while you're getting started.
+- As your app grows, you should check the box and use separate resources for each slot/environment for better security and isolation.
+
+**Reference:** [Microsoft Docs: App settings and connection strings in Azure App Service](https://learn.microsoft.com/en-us/azure/app-service/deploy-staging-slots#app-settings-and-connection-strings)
 
 --- 
