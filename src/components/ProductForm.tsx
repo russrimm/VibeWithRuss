@@ -131,7 +131,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onProductAdded, initialProduc
           type="submit"
           className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-xl px-6 py-3 shadow-lg hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all text-lg disabled:opacity-60"
           disabled={loading}
-          aria-busy={loading}
+          aria-busy={!!loading}
         >
           {loading ? (mode === 'edit' ? 'Saving...' : 'Adding...') : (mode === 'edit' ? 'Save Changes' : 'Add Product')}
         </button>
