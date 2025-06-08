@@ -24,7 +24,7 @@ export class UserRepository {
     };
 
     const { resource } = await container.items.create(user);
-    return resource as User;
+    return resource as unknown as User;
   }
 
   async getUserByEmail(email: string): Promise<User | null> {
@@ -34,7 +34,7 @@ export class UserRepository {
     };
 
     const { resources } = await container.items.query(query).fetchAll();
-    return resources[0] as User || null;
+    return (resources[0] as unknown as User) || null;
   }
 
   async updateUser(id: string, input: UpdateUserInput): Promise<User | null> {
@@ -58,13 +58,13 @@ export class UserRepository {
       ...updates,
     });
 
-    return resource as User;
+    return resource as unknown as User;
   }
 
   async getUserById(id: string): Promise<User | null> {
     try {
       const { resource } = await container.item(id).read();
-      return resource as User;
+      return resource as unknown as User;
     } catch (error) {
       return null;
     }
