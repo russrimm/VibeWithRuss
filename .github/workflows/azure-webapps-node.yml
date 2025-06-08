@@ -40,12 +40,13 @@ jobs:
         with:
           node-version: '22.x'
 
-      # Install dependencies and build
+      # Install dependencies and build 
       - name: npm install, build, and test
         run: |
           npm install
           npm run build
 
+          
           # Login to Azure using a Service Principal
       - name: 'Login to Azure'
         uses: azure/login@v2
