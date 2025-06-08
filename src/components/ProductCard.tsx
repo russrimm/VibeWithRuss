@@ -45,11 +45,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, image, price, descripti
         </button>
       )}
     </div>
-    <div className="w-36 h-36 flex items-center justify-center mb-4 bg-gray-100 rounded-xl overflow-hidden border border-gray-200">
+    <div className="w-16 h-16 flex items-center justify-center mb-4 bg-gray-100 rounded-xl overflow-hidden border border-gray-200">
       <img
         src={image}
         alt={name}
-        className="w-full h-full object-cover object-center transition-transform duration-200 group-hover:scale-105"
+        width={64}
+        height={64}
+        className="w-16 h-16 object-cover object-center rounded-full transition-transform duration-200 group-hover:scale-105"
         style={{ aspectRatio: '1/1' }}
       />
     </div>
