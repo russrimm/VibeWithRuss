@@ -18,17 +18,103 @@ A modern web application built with Next.js, TypeScript, and Azure services for 
 2. Install VS Code from [code.visualstudio.com](https://code.visualstudio.com/)
 3. Install Git from [git-scm.com](https://git-scm.com/)
 
-### 2. GitHub Setup
+### 2. GitHub Repository Setup & Workflow
 
-1. Create a GitHub account at [github.com/signup](https://github.com/signup)
-2. Create a new repository:
-   - Click "New repository"
-   - Name it "product-photo-gallery"
-   - Make it Public
-   - Initialize with README
-   - Click "Create repository"
+#### a. Create a New GitHub Repository
+1. Go to [GitHub](https://github.com/)
+2. Click the **+** icon (top right) > **New repository**
+3. Name it (e.g., `product-photo-gallery`)
+4. Set visibility (Public or Private)
+5. (Optional) Add a description
+6. **Initialize with a README** (recommended)
+7. Click **Create repository**
 
-### 3. Local Project Setup
+#### b. Clone the Repository Locally
+```bash
+git clone https://github.com/YOUR_USERNAME/product-photo-gallery.git
+cd product-photo-gallery
+```
+
+#### c. Create a New Branch
+```bash
+git checkout -b feature/your-feature-name
+```
+
+#### d. Make Changes, Pull, and Push
+- Make your code changes
+- Check status:
+  ```bash
+  git status
+  ```
+- Stage and commit:
+  ```bash
+  git add .
+  git commit -m "Describe your changes"
+  ```
+- Pull latest changes from main (resolve conflicts if any):
+  ```bash
+  git pull origin main
+  ```
+- Push your branch:
+  ```bash
+  git push origin feature/your-feature-name
+  ```
+
+#### e. Create a Pull Request (PR)
+1. Go to your repo on GitHub
+2. Click **Compare & pull request**
+3. Add a description and submit the PR
+4. Wait for review/merge
+
+#### f. Check GitHub Actions Status
+1. Go to the **Actions** tab in your GitHub repo
+2. Click on the latest workflow run to see build/deploy status
+3. Fix any errors and push again if needed
+
+### 3. Azure Deployment YAML (Node.js + Next.js)
+
+Azure can auto-generate a GitHub Actions workflow for Node.js/Next.js deployments:
+
+1. In the [Azure Portal](https://portal.azure.com/), go to your App Service
+2. In the left menu, select **Deployment Center**
+3. Choose **GitHub** as the source, authenticate, and select your repo/branch
+4. Azure will auto-generate a `.github/workflows/azure-webapps-node.yml` file
+5. Review and commit the YAML file to your repo
+
+**Example YAML for Node.js + Next.js:**
+```yaml
+name: Build and deploy Node.js app to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
+```
+
+- Azure will set the required secrets (`AZURE_WEBAPP_NAME`, `AZURE_WEBAPP_PUBLISH_PROFILE`) automatically if you use the Deployment Center.
+- For Next.js, make sure your build output is correctly configured (see Azure docs for SSR/static export options).
+
+### 4. Local Project Setup
 
 ```bash
 # Clone your repository
@@ -42,7 +128,7 @@ npx create-next-app@latest . --typescript --tailwind --eslint
 npm install @azure/cosmos @azure/identity next-auth
 ```
 
-### 4. VS Code Setup
+### 5. VS Code Setup
 
 1. Open VS Code
 2. Install the following extensions:
@@ -52,7 +138,7 @@ npm install @azure/cosmos @azure/identity next-auth
    - Azure Tools
    - Azure Cosmos DB
 
-### 5. Using Cursor AI Agent
+### 6. Using Cursor AI Agent
 
 1. Open your project in VS Code
 2. Press `Cmd/Ctrl + Shift + P`
@@ -68,7 +154,7 @@ npm install @azure/cosmos @azure/identity next-auth
 "Create Cosmos DB models for user management"
 ```
 
-### 6. Azure Services Setup
+### 7. Azure Services Setup
 
 1. Create an Azure account at [azure.microsoft.com/free](https://azure.microsoft.com/free/)
 2. Set up the following services:
@@ -121,7 +207,7 @@ npm install @azure/cosmos @azure/identity next-auth
    - Configure private endpoints if needed
    - Enable encryption at rest
 
-### 7. Cursor Rules
+### 8. Cursor Rules
 
 Create a `.cursor/rules` directory in your project and add the following rules:
 
@@ -142,7 +228,7 @@ For more rule templates and examples, visit:
 - [Cursor Rules Documentation](https://docs.cursor.com/context/rules)
 - [Cursor Directory](https://cursor.directory) for community rules
 
-### 8. Project Structure
+### 9. Project Structure
 
 ```
 product-photo-gallery/
@@ -285,7 +371,7 @@ MCP (Model Context Protocol) servers like context7, sequential-thinking, and pup
 - [Cursor Rules Documentation](https://docs.cursor.com/context/rules)
 - [Cursor Directory](https://cursor.directory) — Search engine for rules
 
-### 9. GitHub Token Setup for Azure Web App
+### 10. GitHub Token Setup for Azure Web App
 
 To enable GitHub integration (for CI/CD, private repo access, or GitHub API calls), you need to generate a GitHub Personal Access Token and add it as an environment variable in your Azure Web App.
 
