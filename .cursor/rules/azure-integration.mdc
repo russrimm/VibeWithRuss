@@ -1,6 +1,6 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
 # Azure Services Integration
@@ -29,7 +29,7 @@ alwaysApply: false
 ## Security
 - Use Azure AD for authentication
 - Implement proper RBAC
-- Use managed identities
+- All Azure deployments must use Service Principal authentication. Do not use publish profiles or basic authentication in workflows. Remove any publish-profile: lines from workflow YAMLs.
 - Implement proper network security
 - Use proper encryption
 
