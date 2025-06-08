@@ -46,7 +46,7 @@ jobs:
           npm install
           npm run build
 
-      # Login to Azure using a Service Principal
+          # Login to Azure using a Service Principal
       - name: 'Login to Azure'
         uses: azure/login@v2
         with:
