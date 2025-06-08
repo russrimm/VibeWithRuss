@@ -1,0 +1,48 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Azure Database Integration
+
+## Azure SQL Database
+- Use Azure SQL Database for user authentication
+- Implement connection pooling
+- Use parameterized queries
+- Implement proper error handling
+- Use proper indexing strategies
+
+## Security
+- Use Azure AD authentication
+- Implement row-level security
+- Use encryption at rest
+- Implement proper access controls
+- Use managed identities
+
+## Schema Design
+- Use proper normalization
+- Implement proper constraints
+- Use appropriate data types
+- Implement proper indexing
+- Use proper naming conventions
+
+## Performance
+- Implement proper query optimization
+- Use proper indexing
+- Implement proper caching
+- Use proper connection pooling
+- Implement proper monitoring
+
+## Backup and Recovery
+- Implement proper backup strategies
+- Use point-in-time restore
+- Implement proper disaster recovery
+- Use proper retention policies
+- Implement proper testing
+
+## Monitoring
+- Use Azure Monitor
+- Implement proper logging
+- Use proper metrics
+- Configure proper alerts
+- Implement proper diagnostics

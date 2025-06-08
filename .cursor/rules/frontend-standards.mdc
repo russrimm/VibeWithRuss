@@ -1,0 +1,47 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Frontend Development Standards
+
+## Component Structure
+- Use functional components with TypeScript
+- Implement proper prop typing
+- Follow atomic design principles
+- Use Tailwind CSS for styling
+
+## State Management
+- Use React hooks for local state
+- Implement context for global state
+- Follow immutable state patterns
+
+## Image Handling
+- Use Next.js Image component for optimization
+- Implement lazy loading for images
+- Use Azure Blob Storage for image storage
+- Implement proper error handling for failed image loads
+
+## Performance
+- Implement proper code splitting
+- Use dynamic imports where appropriate
+- Optimize bundle size
+- Implement proper caching strategies
+
+## Accessibility
+- Use semantic HTML
+- Implement proper ARIA labels
+- Ensure keyboard navigation
+- Maintain proper color contrast
+
+## Testing
+- Write unit tests for components
+- Implement integration tests
+- Use React Testing Library
+- Maintain good test coverage
+
+## Code Style
+- Use ESLint and Prettier
+- Follow TypeScript best practices
+- Use meaningful variable names
+- Write clear comments

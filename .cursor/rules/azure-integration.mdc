@@ -1,0 +1,48 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Azure Services Integration
+
+## Azure Blob Storage
+- Use Azure Storage SDK for Node.js
+- Implement proper error handling
+- Use SAS tokens for secure access
+- Implement proper retry logic
+- Use proper content types for uploads
+
+## Azure App Service
+- Configure proper environment variables
+- Implement proper logging
+- Use Azure Key Vault for secrets
+- Configure proper scaling rules
+- Implement proper monitoring
+
+## Azure CDN
+- Configure proper caching rules
+- Use proper cache headers
+- Implement proper purge mechanisms
+- Configure proper security headers
+- Use proper SSL/TLS settings
+
+## Security
+- Use Azure AD for authentication
+- Implement proper RBAC
+- Use managed identities
+- Implement proper network security
+- Use proper encryption
+
+## Monitoring
+- Use Azure Application Insights
+- Implement proper logging
+- Use Azure Monitor
+- Configure proper alerts
+- Implement proper metrics
+
+## Cost Optimization
+- Use proper resource sizing
+- Implement proper scaling
+- Use proper storage tiers
+- Implement proper caching
+- Use proper CDN settings
