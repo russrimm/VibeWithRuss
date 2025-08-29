@@ -7,6 +7,7 @@ A modern web application built with Next.js, TypeScript, and Azure services for 
 - [Node.js](https://nodejs.org/) (LTS version)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Git](https://git-scm.com/)
+- [Github Desktop](https://github.com/apps/desktop)
 - [GitHub Account](https://github.com/signup)
 - [Azure Account](https://azure.microsoft.com/free/)
 
