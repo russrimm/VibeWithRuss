@@ -31,6 +31,7 @@ This ensures all configuration and dependencies are correct for Tailwind v4+ and
 1. Install Node.js from [nodejs.org](https://nodejs.org/)
 2. Install VS Code from [code.visualstudio.com](https://code.visualstudio.com/)
 3. Install Git from [git-scm.com](https://git-scm.com/)
+4. Add [Beast Mode VS Code Chat Mode](https://gist.github.com/burkeholland/88af0249c4b6aff3820bf37898c8bacf)
 
 ### 2. GitHub Repository Setup & Workflow
 
