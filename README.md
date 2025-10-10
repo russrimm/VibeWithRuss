@@ -10,6 +10,7 @@ A modern web application built with Next.js, TypeScript, and Azure services for 
 - [Github Desktop](https://github.com/apps/desktop)
 - [GitHub Account](https://github.com/signup)
 - [Azure Account](https://azure.microsoft.com/free/)
+- [Beast Mode Chat Mode](https://gist.github.com/burkeholland/88af0249c4b6aff3820bf37898c8bacf)
 
 ## Getting Started
 
