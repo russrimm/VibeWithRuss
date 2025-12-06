@@ -489,6 +489,21 @@ Downloading changes from GitHub to your local computer. This keeps your local co
 
 **Command:** `git pull`
 
+### **Staging (Git Stage)**
+Selecting which changes you want to include in your next commit. It's like putting items in a shopping cart before checking out - you can review what you're about to commit and add or remove files as needed.
+
+**Command:** `git add filename.txt` (stage one file) or `git add .` (stage all changes)
+
+### **Stash (Git Stash)**
+Temporarily saving your uncommitted changes without committing them, so you can work on something else and come back later. Think of it as putting your work-in-progress in a drawer so you can use the desk for something urgent.
+
+**Common commands:**
+- `git stash` - Save current changes temporarily
+- `git stash pop` - Restore the most recent stashed changes
+- `git stash list` - See all stashed changes
+
+**Use case:** You're working on a feature but need to quickly fix a bug on another branch. Stash your current work, switch branches, fix the bug, then come back and pop your stash to continue where you left off.
+
 ### **Pull Request (PR)**
 A request to merge your branch's changes into the main branch. It's a way to say, "Hey team, I made these changes - can you review them before we add them to the main version?"
 
