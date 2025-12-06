@@ -1,6 +1,8 @@
-# Product Photo Gallery Web App
+# Vibe Coding Shell App
 
-A modern web application built with Next.js, TypeScript, Tailwind CSS, and Azure services for displaying product photos.
+A web application built with Next.js, TypeScript, Tailwind CSS, and Azure services for getting startd with agentic development.
+
+> **New to development?** It is strongly recommended to read the [Glossary](#glossary) at the end of this document first! It explains common terms you'll encounter throughout this guide in simple, beginner-friendly language.
 
 ## Prerequisites
 
@@ -42,14 +44,6 @@ This ensures correct configuration for Tailwind v4 and Next.js. Copy your code i
 
 ### b. Clone the Repository Locally
 
-Using Git command line:
-
-```bash
-git clone https://github.com/YOUR_USERNAME/product-photo-gallery.git
-cd product-photo-gallery
-```
-
-Or use GitHub Desktop:
 1. Open GitHub Desktop.
 2. Go to **File > Clone repository**.
 3. Select your repo or paste the URL.
@@ -57,35 +51,13 @@ Or use GitHub Desktop:
 
 ### c. Create a New Branch
 
-Using Git command line:
-
-```bash
-git checkout -b feature/your-feature-name
-```
-
-Or use GitHub Desktop:
+In GitHub Desktop:
 1. Click the **Current Branch** dropdown.
 2. Click **New Branch**.
 3. Name it (e.g., `feature/your-feature-name`).
 4. Click **Create Branch**.
 
 ### d. Make Changes, Pull, and Push
-
-1. Make code changes in VS Code.
-2. Stage and commit changes:
-   ```bash
-   git add .
-   git commit -m "Describe your changes"
-   ```
-3. Pull the latest changes from the main branch:
-   ```bash
-   git pull origin main
-   ```
-4. Resolve any conflicts if prompted.
-5. Push your branch:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
 
 Or use GitHub Desktop:
 1. View changed files in the left panel.
@@ -107,16 +79,6 @@ Or use GitHub Desktop:
 1. Go to the **Actions** tab in your GitHub repository.
 2. Click the latest workflow run to check build/deployment status.
 3. Fix any errors and push changes if needed.
-
-### What are Commits, Pull Requests, and Merging?
-
-- **Commit**: A snapshot of code changes with a descriptive message. Created using `git commit -m "message"`.
-- **Pull Request (PR)**: A request to merge your changes into another branch (e.g., `main`). PRs enable code review and collaboration.
-- **Merging**: Integrates changes from one branch into another, typically PR approval.
-- **Why use this process?**
-  - Ensures code quality through reviews.
-  - Prevents conflicts in the main codebase.
-  - Tracks changes and enables rollbacks.
 
 ## 3. Azure Deployment YAML (Node.js + Next.js)
 
@@ -184,59 +146,20 @@ jobs:
 
 ```bash
 # Clone your repository
-git clone https://github.com/YOUR_USERNAME/product-photo-gallery.git
-cd product-photo-gallery
+git clone https://github.com/YOUR_USERNAME/repositoryname.git
+cd repositoryname
 
 # Install dependencies
-npm install @azure/cosmos @azure/identity next-auth tailwindcss @tailwindcss/cli postcss autoprefixer react next @types/react @types/node @types/bcryptjs bcryptjs
+npm install @azure/identity next-auth tailwindcss @tailwindcss/cli postcss autoprefixer react next @types/react @types/node @types/bcryptjs bcryptjs
 
 # Run audit fix for vulnerabilities
 npm audit fix
+
+# Start the development server
+npm run dev
 ```
 
-### Tailwind CSS Setup (v4+)
-
-1. Install Tailwind CSS:
-   ```bash
-   npm install tailwindcss @tailwindcss/cli postcss autoprefixer --save-dev
-   ```
-
-2. Create `postcss.config.mjs`:
-   ```javascript
-   export default {
-     plugins: {
-       '@tailwindcss/cli': {},
-       autoprefixer: {},
-     },
-   };
-   ```
-
-3. Create `src/styles/globals.css`:
-   ```css
-   @tailwind base;
-   @tailwind components;
-   @tailwind utilities;
-   ```
-
-4. (Optional) Create `tailwind.config.js` if customizations are needed:
-   ```javascript
-   /** @type {import('tailwindcss').Config} */
-   module.exports = {
-     content: [
-       './src/pages/**/*.{js,ts,jsx,tsx}',
-       './src/components/**/*.{js,ts,jsx,tsx}',
-     ],
-     theme: {
-       extend: {},
-     },
-     plugins: [],
-   };
-   ```
-
-5. Start the development server:
-   ```bash
-   npm run dev
-   ```
+**Note**: Configuration files like `postcss.config.mjs`, `tailwind.config.js`, and `globals.css` are typically generated automatically by the installation process or AI agents. If customization is needed, consult the official documentation or ask your AI assistant.
 
 ## 5. VS Code Setup
 
@@ -245,45 +168,15 @@ npm audit fix
    - **ESLint**: For TypeScript linting.
    - **Prettier**: For code formatting.
    - **Azure Tools**: For Azure service integration.
-   - **Azure Cosmos DB**: For database management.
 
 ## 6. Azure Services Setup
 
 1. Create an Azure account at [azure.microsoft.com/free](https://azure.microsoft.com/free).
 2. Set up the following services in Azure Portal:
-   - **Azure Blob Storage**: For product images.
    - **Azure App Service**: For hosting.
-   - **Azure CDN**: For image delivery (optional).
-   - **Azure Cosmos DB**: For user data (Core SQL API).
    - **Microsoft Entra ID**: For authentication.
 
-### 6a. Azure Cosmos DB Setup
-
-1. In Azure Portal, go to **Create a resource > Azure Cosmos DB**.
-2. Select **Core (SQL)** API.
-3. Fill in:
-   - Subscription: Your Azure subscription.
-   - Resource Group: Create new or use existing.
-   - Account Name: Unique name (e.g., `product-gallery-cosmos`).
-   - Region: Choose a region close to you.
-4. Click **Review + create** > **Create**.
-5. After deployment, go to **Data Explorer**:
-   - Create a new database: `user-database`.
-   - Create a new container: `users`, with partition key `/email` (adjust based on query patterns).
-   - Set throughput: 400 RU/s for development.
-6. Get credentials:
-   - Go to **Keys** > Copy **URI** (`COSMOS_ENDPOINT`) and **PRIMARY KEY** (`COSMOS_KEY`).
-7. Add to `.env.local`:
-   ```env
-   COSMOS_ENDPOINT=your-cosmos-endpoint-url
-   COSMOS_KEY=your-cosmos-key
-   COSMOS_DATABASE=user-database
-   COSMOS_CONTAINER=users
-   ```
-
-**Tip**: Add `.env.local` to `.gitignore` to prevent committing secrets.
-
-### 6b. Microsoft Entra ID Setup
+### 6a. Microsoft Entra ID Setup
 
 1. In Azure Portal, go to **Microsoft Entra ID > App registrations > New registration**.
 2. Fill in:
@@ -313,26 +206,6 @@ npm audit fix
    AZURE_AD_TENANT_ID=your-tenant-id
    ```
 9. For production, update **Redirect URIs** in **Authentication** with your production URL (e.g., `https://yourdomain.com/api/auth/callback/azure-ad`).
-
-### 6c. Azure Blob Storage Setup
-
-1. In Azure Portal, go to **Create a resource > Storage account**.
-2. Fill in:
-   - Subscription, Resource Group, Name, Region.
-   - Performance: Standard.
-   - Redundancy: Locally-redundant storage (LRS) for development.
-3. Click **Review + create** > **Create**.
-4. After deployment, go to **Containers > + Container**.
-5. Name it (e.g., `product-images`).
-6. Set **Public access level** to `Blob` (for public read) or `Private` (for uploads).
-7. Get credentials:
-   - Go to **Access keys** > Copy **Connection string** (`AZURE_STORAGE_CONNECTION_STRING`).
-   - Container name: `product-images`.
-8. Add to `.env.local`:
-   ```env
-   AZURE_STORAGE_CONNECTION_STRING=your-connection-string
-   AZURE_BLOB_CONTAINER=product-images
-   ```
 
 ## 7. Project Structure
 
@@ -366,16 +239,6 @@ product-photo-gallery/
 Create `.env.local` in the project root:
 
 ```env
-# Azure Cosmos DB
-COSMOS_ENDPOINT=your-cosmos-endpoint
-COSMOS_KEY=your-cosmos-key
-COSMOS_DATABASE=user-database
-COSMOS_CONTAINER=users
-
-# Azure Blob Storage
-AZURE_STORAGE_CONNECTION_STRING=your-connection-string
-AZURE_BLOB_CONTAINER=product-images
-
 # NextAuth
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-nextauth-secret
@@ -384,11 +247,6 @@ NEXTAUTH_SECRET=your-nextauth-secret
 AZURE_AD_CLIENT_ID=your-client-id
 AZURE_AD_CLIENT_SECRET=your-client-secret
 AZURE_AD_TENANT_ID=your-tenant-id
-```
-
-Generate `NEXTAUTH_SECRET`:
-```bash
-openssl rand -base64 32
 ```
 
 **Tip**: Ensure `.env.local` is listed in `.gitignore`.
@@ -409,32 +267,26 @@ npm run build
 npm run start
 ```
 
-## 10. Database Management
-
-- Use **Azure Portal** or **Azure Data Studio** for Cosmos DB management.
-- Implement error handling and connection pooling in your code.
-- Monitor RU/s usage in Azure Portal to optimize costs.
-
-## 11. Security
+## 10. Security
 
 - Use **NextAuth.js** for authentication with Microsoft Entra ID.
 - Validate all user inputs.
 - Use environment variables for sensitive data.
 - Implement proper error handling and logging.
 
-## 12. Deployment
+## 11. Deployment
 
 1. Push code to GitHub.
 2. In Azure Portal, go to App Service > **Deployment Center**.
 3. Connect to your GitHub repository and branch.
 4. Configure environment variables in **App Service > Configuration**:
    - Add all `.env.local` variables as application settings.
-   - Check **Deployment slot setting** for secrets (e.g., `COSMOS_KEY`, `NEXTAUTH_SECRET`).
+   - Check **Deployment slot setting** for secrets (e.g., `NEXTAUTH_SECRET`).
 5. Deploy via GitHub Actions.
 6. Set up a custom domain and SSL in **App Service > Custom domains**.
 7. Enable monitoring in **App Service > Monitoring**.
 
-## 13. Example package.json
+## 12. Example package.json
 
 ```json
 {
@@ -447,7 +299,6 @@ npm run start
     "lint": "next lint"
   },
   "dependencies": {
-    "@azure/cosmos": "^4.1.1",
     "@azure/identity": "^4.4.1",
     "next": "^15.3.3",
     "next-auth": "^4.24.7",
@@ -471,7 +322,7 @@ npm run start
 }
 ```
 
-## 14. Product Type Definition
+## 13. Product Type Definition
 
 In `src/lib/db/models/product.ts`:
 
@@ -491,7 +342,7 @@ export interface Product {
 
 **Note**: Update this interface if you add new fields to ensure type safety.
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 
 ### Styling or Build Issues
 
@@ -504,14 +355,13 @@ npm run dev
 
 ### Common Errors
 
-- **Cannot find module '@azure/cosmos'**: Run `npm install @azure/cosmos`.
 - **NextAuth.js errors**: Ensure `NEXTAUTH_SECRET` and Entra ID credentials are correct.
 - **Azure login error in GitHub Actions**: Verify `AZURE_CREDENTIALS` JSON format (see section 16).
 - **Styles not applying**: Check `src/styles/globals.css` exists and is imported in `pages/_app.tsx`.
 
 For specific errors, search [Stack Overflow](https://stackoverflow.com) or [GitHub Issues](https://github.com) and provide the URL to your AI assistant for tailored fixes.
 
-## 16. Fixing Azure Login Error in GitHub Actions
+## 15. Fixing Azure Login Error in GitHub Actions
 
 If you see:
 
@@ -549,7 +399,7 @@ Error: Login failed with Error: Using auth-type: SERVICE_PRINCIPAL. Not all valu
    - Add secret: Name: `AZURE_CREDENTIALS`, Value: (paste JSON).
 9. Re-run the workflow.
 
-## 17. Contributing
+## 16. Contributing
 
 1. Fork the repository.
 2. Create a feature branch: `git checkout -b feature/amazing-feature`.
@@ -557,6 +407,131 @@ Error: Login failed with Error: Using auth-type: SERVICE_PRINCIPAL. Not all valu
 4. Push to the branch: `git push origin feature/amazing-feature`.
 5. Open a Pull Request.
 
-## 18. License
+## 17. License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+---
+
+## Glossary
+
+New to coding? Don't worry! Here are the most common terms you'll see in this guide, explained in plain English:
+
+### **Node.js**
+A program that lets you run JavaScript code on your computer (not just in web browsers). Think of it as the engine that powers your app.
+
+### **npm (Node Package Manager)**
+A tool that helps you install and manage code libraries (called "packages") that other developers have created. Instead of writing everything from scratch, you can use npm to download pre-built solutions.
+
+**Common npm commands:**
+- `npm install` - Downloads and installs all the packages your project needs
+- `npm run dev` - Starts your app in development mode so you can test it locally
+- `npm run build` - Prepares your app for deployment (makes it ready for the internet)
+- `npm audit fix` - Fixes security issues in your packages
+
+### **npx**
+A tool that comes with npm. It runs commands from packages without installing them permanently. Great for one-time tasks like creating a new project.
+
+**Example:** `npx create-next-app` creates a new Next.js project without cluttering your computer.
+
+### **Next.js**
+A framework (set of tools) built on top of React that makes it easier to build fast, modern websites. It handles routing, server-side rendering, and other complex stuff for you.
+
+### **Vite**
+A fast build tool that helps develop modern web applications. It's an alternative to other build tools and is known for being super speedy during development.
+
+### **React**
+A JavaScript library for building user interfaces (the parts of websites you see and click). It lets you create reusable components like buttons, forms, and cards.
+
+### **TypeScript**
+JavaScript with extra features that help catch mistakes before you run your code. It adds "types" so you can specify what kind of data (text, numbers, etc.) your code should work with.
+
+### **Tailwind CSS**
+A tool for styling your website using pre-built CSS classes. Instead of writing custom CSS, you add class names like `bg-blue-500` or `text-center` directly to your HTML.
+
+### **CSS (Cascading Style Sheets)**
+The language used to make websites look good - colors, fonts, layouts, spacing, etc. If HTML is the skeleton, CSS is the clothes and makeup.
+
+### **Lint / Linter**
+A tool that checks your code for errors, bad practices, and style issues - like a spell-checker for code. **(Note: It's NOT the fuzzy stuff you find in your pocket! That's a different kind of lint.** 😄**)**
+
+**Example:** ESLint checks JavaScript/TypeScript code.
+
+### **Repository (Repo)**
+A folder that contains all your project files and tracks changes over time. Think of it as a special folder with a time machine built in.
+
+### **GitHub**
+A website where developers store and share their code repositories. It's like Google Drive, but specifically designed for code with powerful collaboration features.
+
+### **Git**
+The underlying version control system that tracks changes to your files. GitHub uses Git behind the scenes.
+
+### **Commit**
+Saving a snapshot of your changes with a descriptive message. Like saving your game progress with a note about what you accomplished.
+
+**Example:** `git commit -m "Added login button"`
+
+### **Check-in**
+Another term for commit - saving your changes to the repository.
+
+### **Branch**
+A separate version of your code where you can make changes without affecting the main version. Imagine creating a copy of your project to experiment in - if it works, you can merge it back; if not, just delete the branch.
+
+**Example branches:** `main` (the primary version), `feature/login-page` (working on a login feature)
+
+### **Push**
+Uploading your local commits (saved changes) to GitHub so others can see them and so they're backed up online.
+
+**Command:** `git push`
+
+### **Pull**
+Downloading changes from GitHub to your local computer. This keeps your local copy up-to-date with what's online.
+
+**Command:** `git pull`
+
+### **Pull Request (PR)**
+A request to merge your branch's changes into the main branch. It's a way to say, "Hey team, I made these changes - can you review them before we add them to the main version?"
+
+### **Clone**
+Making a copy of a repository from GitHub to your computer so you can work on it locally.
+
+**Command:** `git clone https://github.com/username/repo.git`
+
+### **API (Application Programming Interface)**
+A way for different pieces of software to talk to each other. Think of it as a menu at a restaurant - it lists what you can order (request) and what you'll get back (response).
+
+### **Environment Variables (.env)**
+Secret settings for your app (like passwords, API keys) that you don't want to share publicly. They're stored in a `.env.local` file that stays on your computer and never gets uploaded to GitHub.
+
+### **Localhost**
+Your own computer acting as a web server. When you run `npm run dev`, your app runs at `http://localhost:3000` - only you can see it.
+
+### **Deployment**
+Putting your app on the internet so other people can use it. Like moving from your private workshop to a public store.
+
+### **Build**
+Preparing your code for deployment by optimizing it, compiling TypeScript to JavaScript, and bundling everything together.
+
+**Command:** `npm run build`
+
+### **Package.json**
+A file that describes your project - its name, version, dependencies (packages it needs), and commands you can run.
+
+### **Dependencies**
+Other people's code (packages/libraries) that your project needs to work. Listed in `package.json` and installed with `npm install`.
+
+### **Azure**
+Microsoft's cloud computing platform. It provides services for hosting websites, storing data, and much more without you needing to manage physical servers.
+
+### **Cosmos DB**
+A database service from Azure that stores your app's data (users, products, etc.) in the cloud.
+
+### **VS Code (Visual Studio Code)**
+A free, powerful code editor from Microsoft. It's like Microsoft Word, but designed specifically for writing code.
+
+### **Terminal / Command Line / Shell**
+A text-based interface where you type commands to control your computer. Instead of clicking buttons, you type instructions like `npm install` or `git push`.
+
+---
+
+**Still confused about something?** That's totally normal! Coding has a steep learning curve, but every expert was once a beginner. Feel free to search for terms online, watch tutorial videos, or ask AI assistants like GitHub Copilot for help. You've got this! 🚀
