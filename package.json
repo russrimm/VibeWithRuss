@@ -23,5 +23,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
-  }
+  },
+  "name": "webapp4n00bs",
+  "version": "1.0.0",
+  "description": "A modern web application built with Next.js, TypeScript, and Azure services for displaying product photos.",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/russrimm/WebApp4N00bs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/russrimm/WebApp4N00bs/issues"
+  },
+  "homepage": "https://github.com/russrimm/WebApp4N00bs#readme"
 }

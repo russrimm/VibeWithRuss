@@ -6,11 +6,13 @@ A starter guide for building web applications with Next.js, TypeScript, Tailwind
 
 ## Prerequisites
 
-- **Node.js**: LTS version (recommended: v20.x, as v22.x may not be fully supported by Azure yet)
-- **Visual Studio Code**: Download from [code.visualstudio.com](https://code.visualstudio.com)
-- **Git**: Download from [git-scm.com](https://git-scm.com)
-- **GitHub Account**: Sign up at [github.com](https://github.com)
-- **Azure Account**: Sign up for a free account at [azure.microsoft.com/free](https://azure.microsoft.com/free)
+- [Node.js](https://nodejs.org/) (LTS version)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Git](https://git-scm.com/)
+- [Github Desktop](https://github.com/apps/desktop)
+- [GitHub Account](https://github.com/signup)
+- [Azure Account](https://azure.microsoft.com/free/)
+- [Beast Mode Chat Mode](https://gist.github.com/burkeholland/88af0249c4b6aff3820bf37898c8bacf)
 
 ## Getting Started
 
@@ -104,6 +106,87 @@ Azure can generate a GitHub Actions workflow for deploying your app. Below is an
 
 Create `.github/workflows/ci-deployment.yml`:
 
+### 1. Development Environment Setup
+
+1. Install Node.js from [nodejs.org](https://nodejs.org/)
+2. Install VS Code from [code.visualstudio.com](https://code.visualstudio.com/)
+3. Install Git from [git-scm.com](https://git-scm.com/)
+4. Add [Beast Mode VS Code Chat Mode](https://gist.github.com/burkeholland/88af0249c4b6aff3820bf37898c8bacf)
+
+### 2. GitHub Repository Setup & Workflow
+
+#### a. Create a New GitHub Repository
+1. Go to [GitHub](https://github.com/)
+2. Click the **+** icon (top right) > **New repository**
+3. Name it (e.g., `product-photo-gallery`)
+4. Set visibility (Public or Private)
+5. (Optional) Add a description
+6. **Initialize with a README** (recommended)
+7. Click **Create repository**
+
+#### b. Clone the Repository Locally (with GitHub Desktop)
+1. Open [GitHub Desktop](https://desktop.github.com/)
+2. Go to **File > Clone repository**
+3. Find your repo in the list or paste the URL (e.g., `https://github.com/YOUR_USERNAME/product-photo-gallery.git`)
+4. Click **Clone**
+
+#### c. Create a New Branch (with GitHub Desktop)
+1. In GitHub Desktop, click the **Current Branch** dropdown (top center)
+2. Click **New Branch**
+3. Name your branch (e.g., `feature/your-feature-name`)
+4. Click **Create Branch**
+
+#### d. Make Changes, Pull, and Push (with GitHub Desktop)
+1. Make your code changes in your editor (e.g., VS Code)
+2. Go back to GitHub Desktop
+3. You'll see changed files listed on the left
+4. Enter a summary for your changes at the bottom left
+5. Click **Commit to [your branch name]**
+6. Click **Repository > Pull origin** to get the latest changes from GitHub (do this before pushing if others are working on the repo)
+7. Click **Push origin** (top bar) to upload your branch and commits to GitHub
+
+#### e. Create a Pull Request (PR)
+1. After pushing, GitHub Desktop will show a button: **Create Pull Request**
+2. Click it to open GitHub in your browser
+3. Fill in the PR details and submit
+4. Wait for review/merge
+
+#### f. Check GitHub Actions Status
+1. Go to the **Actions** tab in your GitHub repo
+2. Click on the latest workflow run to see build/deploy status
+3. Fix any errors and push again if needed
+
+#### What are commits, pull requests, and merging?
+
+- **Commit:**
+  - A commit is a snapshot of your code changes. Each commit has a message describing what changed. Commits let you track the history of your project and roll back if needed.
+  - You create a commit after staging your changes with `git add` and then running `git commit -m "message"`.
+
+- **Pull Request (PR):**
+  - A pull request is a request to merge your changes from one branch (e.g., a feature branch) into another (usually `main`).
+  - PRs let you review, discuss, and test changes before they become part of the main codebase. They are essential for collaboration and code quality.
+  - In GitHub, you create a PR after pushing your branch. Team members (or Copilot) can review and approve it.
+
+- **Merging:**
+  - Merging is the process of integrating changes from one branch into another. When a PR is approved, you merge it to make the changes part of the main branch.
+  - This updates the main branch with your new features, bug fixes, or improvements.
+
+**Why use this process?**
+- Ensures code is reviewed and tested before going live
+- Prevents conflicts and mistakes in the main codebase
+- Makes it easy to track, discuss, and roll back changes if needed
+
+### 3. Azure Deployment YAML (Node.js + Next.js)
+
+Azure can auto-generate a GitHub Actions workflow for Node.js/Next.js deployments:
+
+1. In the [Azure Portal](https://portal.azure.com/), go to your App Service
+2. In the left menu, select **Deployment Center**
+3. Choose **GitHub** as the source, authenticate, and select your repo/branch
+4. Azure will auto-generate a `.github/workflows/azure-webapps-node.yml` file
+5. Review and commit the YAML file to your repo
+
+**Example YAML for Node.js + Next.js:**
 ```yaml
 name: Build and deploy to Azure Web App
 
@@ -167,8 +250,14 @@ jobs:
 git clone https://github.com/YOUR_USERNAME/repositoryname.git
 cd repositoryname
 
-# Install dependencies
-npm install @azure/identity next-auth tailwindcss @tailwindcss/cli postcss autoprefixer react next @types/react @types/node @types/bcryptjs bcryptjs
+# Create Next.js project with TypeScript
+npx create-next-app@latest . --typescript --tailwind --eslint
+
+# Install dependencies (including Azure Cosmos DB SDK v4.0.1+ and Tailwind v4+)
+npm install @azure/cosmos@latest @azure/identity next-auth react next @types/react @types/node @types/bcryptjs bcryptjs
+
+# Install TailwindCSS v4+ and PostCSS (required for styling)
+npm install -D tailwindcss@4 @tailwindcss/postcss postcss autoprefixer
 
 # Run audit fix for vulnerabilities
 npm audit fix
@@ -282,8 +371,12 @@ npm install
 # Run development server
 npm run dev
 
-# Build for production
-npm run build
+> **Note:** This project requires `@azure/cosmos` version **4.48.2 or higher**. Make sure your `package.json` includes:
+> ```json
+>   "@azure/cosmos": "^4.48.2"
+> ```
+
+### 5. VS Code Setup
 
 # Start production server
 npm run start
@@ -659,4 +752,8 @@ A text-based interface where you type commands to control your computer. Instead
 
 ---
 
-**Still confused about something?** That's totally normal! Coding has a steep learning curve, but every expert was once a beginner. Feel free to search for terms online, watch tutorial videos, or ask AI assistants like GitHub Copilot for help. You've got this! 🚀
+If you get stuck on a specific error:
+- Search for the error message online (Stack Overflow, GitHub Issues, official docs, etc.).
+- If you find a discussion, blog post, or solution that seems promising, **copy the URL**.
+- Provide the URL to the agent (AI assistant) and ask it to review and fix the issue using the findings from that page.
+- This helps the agent give you a solution that is up-to-date and tailored to your exact problem. 
