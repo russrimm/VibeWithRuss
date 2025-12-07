@@ -1,6 +1,6 @@
 # Vibe Coding Shell App
 
-A web application built with Next.js, TypeScript, Tailwind CSS, and Azure services for getting startd with agentic development.
+A starter guide for building web applications with Next.js, TypeScript, Tailwind CSS, and Azure services using agentic development with GitHub Copilot.
 
 > **New to development?** It is strongly recommended to read the [Glossary](#glossary) at the end of this document first! It explains common terms you'll encounter throughout this guide in simple, beginner-friendly language.
 
@@ -14,7 +14,25 @@ A web application built with Next.js, TypeScript, Tailwind CSS, and Azure servic
 
 ## Getting Started
 
-### 0. Recommended: Use the Official Next.js + Tailwind Starter
+### 0. Verify GitHub Copilot MCPs are Running
+
+Before starting any development, verify that Model Context Protocol (MCP) servers are active in GitHub Copilot:
+
+1. Open VS Code
+2. Open GitHub Copilot Chat (Ctrl+Shift+I or Cmd+Shift+I)
+3. Look at the bottom of the chat panel for MCP status indicators
+4. You should see active MCPs like:
+   - **Memory MCP** - For context retention across sessions
+   - **Azure MCP** - For Azure service integration
+   - **Microsoft Learn MCP** - For documentation access
+5. If any MCPs are not running:
+   - Check VS Code settings for MCP configuration
+   - Restart VS Code if needed
+   - Verify MCP server installations
+
+**Important**: Working without MCPs may result in reduced code quality and missing best practices.
+
+### 1. Recommended: Use the Official Next.js + Tailwind Starter
 
 For a reliable setup with Tailwind CSS v4+ and Next.js, start with the official template:
 
@@ -24,19 +42,19 @@ npx create-next-app@latest my-app --typescript --tailwind --eslint
 
 This ensures correct configuration for Tailwind v4 and Next.js. Copy your code into this project or use it as a reference.
 
-## 1. Development Environment Setup
+## 2. Development Environment Setup
 
 1. Install Node.js from [nodejs.org](https://nodejs.org).
 2. Install Visual Studio Code from [code.visualstudio.com](https://code.visualstudio.com).
 3. Install Git from [git-scm.com](https://git-scm.com).
 
-## 2. GitHub Repository Setup & Workflow
+## 3. GitHub Repository Setup & Workflow
 
 ### a. Create a New GitHub Repository
 
 1. Go to [github.com](https://github.com).
 2. Click the **+** icon (top right) > **New repository**.
-3. Name it (e.g., `product-photo-gallery`).
+3. Name it (e.g., `my-web-app` or choose your own descriptive name).
 4. Set visibility (Public or Private).
 5. (Optional) Add a description.
 6. Initialize with a README (optional but recommended).
@@ -80,7 +98,7 @@ Or use GitHub Desktop:
 2. Click the latest workflow run to check build/deployment status.
 3. Fix any errors and push changes if needed.
 
-## 3. Azure Deployment YAML (Node.js + Next.js)
+## 4. Azure Deployment YAML (Node.js + Next.js)
 
 Azure can generate a GitHub Actions workflow for deploying your app. Below is an updated YAML file using modern actions and caching for faster builds.
 
@@ -142,7 +160,7 @@ jobs:
   - Avoid publish profiles in workflows.
   - Never commit secrets to your repository.
 
-## 4. Local Project Setup
+## 5. Local Project Setup
 
 ```bash
 # Clone your repository
@@ -161,7 +179,9 @@ npm run dev
 
 **Note**: Configuration files like `postcss.config.mjs`, `tailwind.config.js`, and `globals.css` are typically generated automatically by the installation process or AI agents. If customization is needed, consult the official documentation or ask your AI assistant.
 
-## 5. VS Code Setup
+## 6. VS Code Setup and GitHub Copilot Extensions
+
+### Install Required Extensions
 
 1. Open your project in VS Code.
 2. Install recommended extensions:
@@ -169,18 +189,20 @@ npm run dev
    - **Prettier**: For code formatting.
    - **Azure Tools**: For Azure service integration.
 
-## 6. Azure Services Setup
+## 7. Azure Services Setup (Optional)
+
+**Note**: This section is optional and only needed if deploying to Azure or using Azure authentication.
 
 1. Create an Azure account at [azure.microsoft.com/free](https://azure.microsoft.com/free).
 2. Set up the following services in Azure Portal:
    - **Azure App Service**: For hosting.
    - **Microsoft Entra ID**: For authentication.
 
-### 6a. Microsoft Entra ID Setup
+### 7a. Microsoft Entra ID Setup
 
 1. In Azure Portal, go to **Microsoft Entra ID > App registrations > New registration**.
 2. Fill in:
-   - Name: `Product Photo Gallery App`.
+   - Name: `My Web App` (or your chosen app name).
    - Supported account types: Single-tenant (or multi-tenant as needed).
    - Redirect URI: `http://localhost:3000/api/auth/callback/azure-ad` (for development).
 3. Click **Register**.
@@ -207,10 +229,10 @@ npm run dev
    ```
 9. For production, update **Redirect URIs** in **Authentication** with your production URL (e.g., `https://yourdomain.com/api/auth/callback/azure-ad`).
 
-## 7. Project Structure
+## 8. Project Structure
 
 ```plaintext
-product-photo-gallery/
+my-web-app/
 ├── .github/
 │   └── workflows/
 │       └── ci-deployment.yml
@@ -234,7 +256,7 @@ product-photo-gallery/
 └── tsconfig.json
 ```
 
-## 8. Environment Variables
+## 9. Environment Variables
 
 Create `.env.local` in the project root:
 
@@ -251,7 +273,7 @@ AZURE_AD_TENANT_ID=your-tenant-id
 
 **Tip**: Ensure `.env.local` is listed in `.gitignore`.
 
-## 9. Development
+## 10. Development
 
 ```bash
 # Install dependencies
@@ -267,14 +289,14 @@ npm run build
 npm run start
 ```
 
-## 10. Security
+## 11. Security
 
 - Use **NextAuth.js** for authentication with Microsoft Entra ID.
 - Validate all user inputs.
 - Use environment variables for sensitive data.
 - Implement proper error handling and logging.
 
-## 11. Deployment
+## 12. Deployment
 
 1. Push code to GitHub.
 2. In Azure Portal, go to App Service > **Deployment Center**.
@@ -286,11 +308,11 @@ npm run start
 6. Set up a custom domain and SSL in **App Service > Custom domains**.
 7. Enable monitoring in **App Service > Monitoring**.
 
-## 12. Example package.json
+## 13. Example package.json
 
 ```json
 {
-  "name": "product-photo-gallery",
+  "name": "my-web-app",
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
@@ -322,27 +344,115 @@ npm run start
 }
 ```
 
-## 13. Product Type Definition
+## 14. Working with GitHub Copilot: Ask Mode to Beast Mode
 
-In `src/lib/db/models/product.ts`:
+### Step 1: Plan Your Project in Ask Mode
 
-```typescript
-export interface Product {
-  id: string;
-  name: string;
-  image: string;
-  price: string;
-  description?: string;
-  category?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  type: 'product';
-}
+Before coding, have a detailed conversation with GitHub Copilot in **Ask Mode**:
+
+1. Open GitHub Copilot Chat in VS Code
+2. Click the mode selector and choose **Ask** mode
+3. Describe your project in detail:
+   - What application you want to build
+   - Key features and functionality
+   - Technologies you want to use
+   - User experience goals
+   - Any specific requirements or constraints
+
+**Example conversation starters:**
+```
+"I want to build a recipe sharing website where users can:
+- Browse recipes by category
+- Search for recipes by ingredients
+- Save their favorite recipes
+- Create and share their own recipes
+- Rate and comment on recipes
+
+I'd like to use Next.js, TypeScript, and Tailwind CSS.
+What's the best architecture for this?"
 ```
 
-**Note**: Update this interface if you add new fields to ensure type safety.
+### Step 2: Refine Your Plan
 
-## 14. Troubleshooting
+Continue the conversation to clarify:
+- Database structure and data models
+- Authentication approach
+- API endpoints needed
+- Component architecture
+- State management strategy
+- Deployment plan
+
+Ask Copilot to:
+- Suggest best practices
+- Identify potential challenges
+- Recommend libraries and tools
+- Outline implementation steps
+
+### Step 3: Switch to Beast Mode for Implementation
+
+Once you have a clear plan:
+
+1. In the GitHub Copilot Chat panel
+2. Click the mode selector dropdown
+3. Switch from **Ask** to **Beast** mode
+4. Provide Copilot with your finalized requirements
+5. Let Beast mode implement the solution autonomously
+
+**Beast Mode prompt template:**
+```
+"Based on our discussion, implement the recipe sharing website with:
+
+1. Next.js 15 + TypeScript + Tailwind CSS
+2. User authentication with NextAuth
+3. Recipe CRUD operations
+4. Search and filter functionality
+5. Responsive design
+
+Follow the architecture we discussed and implement all features.
+Create all necessary files, components, and API routes.
+Test everything and ensure it runs without errors."
+```
+
+### Step 4: Monitor Progress
+
+Beast mode will:
+- Create all necessary files
+- Implement features step by step
+- Run tests and fix errors
+- Commit changes with descriptive messages
+
+You can interrupt at any time to:
+- Ask questions
+- Request changes
+- Provide additional requirements
+
+### Step 5: Review and Test
+
+After Beast mode completes:
+
+1. Review the generated code
+2. Run `npm run dev` to test locally
+3. Check for any errors or warnings
+4. Test all features manually
+5. Ask Copilot to make any needed adjustments
+
+**Pro tip**: Use the prompts from the [Best Practices Guide](BEST_PRACTICES.md) to have Copilot review and optimize the code.
+
+## 15. Troubleshooting
+
+### GitHub Copilot Issues
+
+**Copilot not responding:**
+- Verify MCPs are running (see section 0)
+- Check internet connection
+- Restart VS Code
+- Sign out and sign back into GitHub Copilot
+
+**Beast mode getting stuck:**
+- Switch back to Ask mode
+- Ask "What's the current status?"
+- Provide more specific instructions
+- Break the task into smaller pieces
 
 ### Styling or Build Issues
 
@@ -361,7 +471,7 @@ npm run dev
 
 For specific errors, search [Stack Overflow](https://stackoverflow.com) or [GitHub Issues](https://github.com) and provide the URL to your AI assistant for tailored fixes.
 
-## 15. Fixing Azure Login Error in GitHub Actions
+## 16. Fixing Azure Login Error in GitHub Actions (Optional)
 
 If you see:
 
@@ -399,7 +509,7 @@ Error: Login failed with Error: Using auth-type: SERVICE_PRINCIPAL. Not all valu
    - Add secret: Name: `AZURE_CREDENTIALS`, Value: (paste JSON).
 9. Re-run the workflow.
 
-## 16. Contributing
+## 17. Contributing
 
 1. Fork the repository.
 2. Create a feature branch: `git checkout -b feature/amazing-feature`.
@@ -407,7 +517,7 @@ Error: Login failed with Error: Using auth-type: SERVICE_PRINCIPAL. Not all valu
 4. Push to the branch: `git push origin feature/amazing-feature`.
 5. Open a Pull Request.
 
-## 17. License
+## 18. License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 
